@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yarn — Woven from life. Spun by you.</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green:    #4A7C59;
+      --green-lt: #6A9E78;
+      --green-dk: #2E5238;
+      --coral:    #D96B4A;
+      --amber:    #C88A3A;
+      --brown:    #3D2B1F;
+      --cream:    #FBF6EE;
+      --card:     #FFFFFF;
+      --border:   #EAE0D0;
+      --text:     #2A1E14;
+      --muted:    #7A6555;
+      --font-h:   'Lora', Georgia, serif;
+      --font-b:   'Nunito', system-ui, sans-serif;
+    }
+
+    body { font-family: var(--font-b); background: var(--cream); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(251,246,238,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-logo-text { font-family: var(--font-h); font-size: 22px; font-weight: 700; color: var(--brown); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 15px; transition: color .2s; }
+    .nav-links a:hover { color: var(--green); }
+    .btn-nav { background: var(--green); color: #fff; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 14px; transition: background .2s; }
+    .btn-nav:hover { background: var(--green-dk); }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191011?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center top; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(42,30,20,0.55) 0%, rgba(42,30,20,0.35) 50%, rgba(42,30,20,0.7) 100%); }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; padding: 140px 28px 80px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 7px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 28px; }
+    .hero-badge .dot { width: 7px; height: 7px; background: #6DD98A; border-radius: 50%; }
+    .hero h1 { font-family: var(--font-h); font-size: clamp(42px, 7vw, 76px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+    .hero h1 em { font-style: italic; color: #F0D090; }
+    .hero-desc { font-size: 18px; color: rgba(255,255,255,0.88); max-width: 540px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto 14px; }
+    .hero-form input { flex: 1; padding: 14px 20px; border-radius: 30px; border: none; font-size: 15px; font-family: var(--font-b); outline: none; background: rgba(255,255,255,0.95); color: var(--text); }
+    .hero-form input::placeholder { color: #999; }
+    .btn-hero { background: var(--green); color: #fff; padding: 14px 26px; border-radius: 30px; border: none; font-size: 15px; font-weight: 700; font-family: var(--font-b); cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .btn-hero:hover { background: var(--green-dk); }
+    .hero-note { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .confirm-msg { display: none; margin-top: 16px; color: #6DD98A; font-weight: 700; font-size: 15px; }
+    .confirm-msg.visible { display: block; }
+
+    /* Photo strip below hero */
+    .photo-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .photo-strip-item { height: 220px; overflow: hidden; }
+    .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .photo-strip-item:hover img { transform: scale(1.04); }
+
+    /* ── PROOF BAR ── */
+    .proof { background: var(--green); padding: 18px 28px; }
+    .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; }
+    .proof-inner .label { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .proof-stat { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; font-size: 14px; }
+    .proof-stat .emoji { font-size: 18px; }
+
+    /* ── SECTION COMMONS ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    .section-label { display: inline-block; background: #E8F2EB; color: var(--green-dk); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .section-title { font-family: var(--font-h); font-size: clamp(30px, 4vw, 46px); font-weight: 700; color: var(--brown); line-height: 1.15; margin-bottom: 16px; }
+    .section-desc { font-size: 17px; color: var(--muted); max-width: 580px; line-height: 1.7; }
+    .grad { color: var(--green); }
+
+    /* ── INTRO SPLIT ── */
+    .intro-split { padding: 100px 0; }
+    .intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .intro-photo { position: relative; }
+    .intro-photo img { width: 100%; border-radius: 24px; display: block; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .intro-photo-badge { position: absolute; bottom: -20px; left: 24px; background: #fff; border-radius: 16px; padding: 14px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 12px; }
+    .intro-photo-badge .stat { font-family: var(--font-h); font-size: 28px; font-weight: 700; color: var(--green); line-height: 1; }
+    .intro-photo-badge .stat-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .intro-text { padding-top: 20px; }
+    .intro-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+    .btn-green { display: inline-block; background: var(--green); color: #fff; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; transition: background .2s; }
+    .btn-green:hover { background: var(--green-dk); }
+
+    /* ── FEATURES ── */
+    .features { padding: 100px 0; background: #fff; }
+    .features-header { text-align: center; margin-bottom: 56px; }
+    .features-header .section-desc { margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .feat-card { background: var(--cream); border-radius: 20px; padding: 36px 28px; border: 1px solid var(--border); transition: transform .25s, box-shadow .25s; }
+    .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .feat-icon { font-size: 36px; margin-bottom: 16px; }
+    .feat-card h3 { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 10px; }
+    .feat-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    /* ── PHOTO FEATURE SECTIONS ── */
+    .photo-feature { padding: 100px 0; }
+    .photo-feature.alt { background: #fff; }
+    .pf-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .pf-inner.rev { direction: rtl; }
+    .pf-inner.rev > * { direction: ltr; }
+    .pf-image { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .pf-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .pf-text { }
+    .pf-text h2 { font-family: var(--font-h); font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 18px; }
+    .pf-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--muted); line-height: 1.5; }
+    .check-list li .ck { color: var(--green); font-weight: 800; font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+
+    /* ── QUOTE STRIP ── */
+    .quote-strip { background: var(--green-dk); padding: 80px 0; text-align: center; }
+    .big-quote { font-family: var(--font-h); font-size: clamp(26px, 4vw, 48px); font-style: italic; color: rgba(255,255,255,0.95); max-width: 760px; margin: 0 auto 24px; line-height: 1.35; }
+    .big-quote-attr { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; }
+
+    /* ── PROMPT CATEGORIES ── */
+    .prompts-section { padding: 100px 0; text-align: center; }
+    .prompt-chips { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 36px 0; }
+    .prompt-chip { background: #fff; border: 1.5px solid var(--border); color: var(--brown); padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 600; transition: all .2s; cursor: default; }
+    .prompt-chip:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .big-prompt { background: var(--green-dk); border-radius: 24px; padding: 48px 40px; max-width: 680px; margin: 0 auto; text-align: center; }
+    .big-prompt .qq { font-size: 72px; line-height: .6; color: rgba(255,255,255,0.25); font-family: var(--font-h); margin-bottom: 20px; display: block; }
+    .big-prompt-text { font-family: var(--font-h); font-size: 24px; font-style: italic; color: #fff; line-height: 1.5; margin-bottom: 16px; }
+    .big-prompt-cat { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ── COLLAGE ── */
+    .collage-section { padding: 80px 0 0; }
+    .collage { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 6px; border-radius: 24px; overflow: hidden; }
+    .collage-item { overflow: hidden; }
+    .collage-item:first-child { grid-row: span 2; }
+    .collage-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .collage-item:hover img { transform: scale(1.04); }
+
+    /* ── PRICING ── */
+    .pricing { padding: 100px 0; background: #fff; }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .price-card { background: var(--cream); border-radius: 24px; padding: 36px 28px; border: 1.5px solid var(--border); position: relative; }
+    .price-card.featured { background: var(--green-dk); border-color: var(--green-dk); }
+    .price-badge { background: var(--amber); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; padding: 5px 14px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
+    .price-name { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 16px; }
+    .price-card.featured .price-name { color: #fff; }
+    .price-num { font-family: var(--font-h); font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
+    .price-card.featured .price-num { color: #A8E6BA; }
+    .price-unit { font-size: 18px; color: var(--muted); }
+    .price-card.featured .price-unit { color: rgba(255,255,255,0.5); }
+    .price-note { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .price-card.featured .price-note { color: rgba(255,255,255,0.5); }
+    .price-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .price-card.featured .price-divider { background: rgba(255,255,255,0.15); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+    .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
+    .price-card.featured .price-features li { color: rgba(255,255,255,0.75); }
+    .price-features li .ck { color: var(--green); font-weight: 800; flex-shrink: 0; }
+    .price-card.featured .price-features li .ck { color: #A8E6BA; }
+    .price-btn { display: block; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all .2s; }
+    .price-btn.solid { background: #fff; color: var(--green-dk); }
+    .price-btn.solid:hover { background: #E8F2EB; }
+    .price-btn.ghost { background: transparent; color: var(--green); border: 2px solid var(--green); }
+    .price-btn.ghost:hover { background: var(--green); color: #fff; }
+
+    /* ── FINAL CTA ── */
+    .final-cta { padding: 120px 0; text-align: center; background: var(--cream); }
+    .final-cta-form { display: flex; gap: 10px; max-width: 460px; margin: 36px auto 14px; }
+    .final-cta-form input { flex: 1; padding: 15px 22px; border-radius: 30px; border: 1.5px solid var(--border); font-size: 15px; font-family: var(--font-b); outline: none; background: #fff; color: var(--text); }
+    .final-cta-form input:focus { border-color: var(--green); }
+    .btn-dark { background: var(--green-dk); color: #fff; padding: 15px 28px; border-radius: 30px; border: none; font-size: 15px; font-weight: 700; font-family: var(--font-b); cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .btn-dark:hover { background: var(--green); }
+    .cta-note { font-size: 13px; color: var(--muted); }
+    .confirm-light { display: none; margin-top: 16px; color: var(--green); font-weight: 700; }
+    .confirm-light.visible { display: block; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--brown); padding: 60px 0 32px; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-brand .nav-logo-text { color: #fff; }
+    .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 12px; line-height: 1.6; }
+    .footer-col h4 { font-family: var(--font-h); font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.9); }
+    .footer-bottom { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.3); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.in { opacity: 1; transform: none; }
+    .stagger-2 { transition-delay: .12s; }
+    .stagger-3 { transition-delay: .24s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .intro-inner, .pf-inner, .pf-inner.rev { grid-template-columns: 1fr; gap: 40px; direction: ltr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+      .collage { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .collage-item:first-child { grid-row: span 1; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-form { flex-direction: column; }
+      .final-cta-form { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .collage { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="assets/yarn-logo.png" alt="Yarn" />
+        <span class="nav-logo-text">Yarn</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a href="#waitlist" class="btn-nav">Join the waitlist</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><div class="dot"></div> Now accepting early access sign-ups</div>
+      <h1>Your life story,<br /><em>woven from life, spun by you.</em></h1>
+      <p class="hero-desc">Yarn is the personal memoir platform that helps you capture your memories — one thread at a time — and weave them into a story worth passing on.</p>
+      <form class="hero-form" id="hero-form" onsubmit="handleSignup(event,'hero-confirm','hero-form')">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-hero">Get early access →</button>
+      </form>
+      <p class="hero-note">2 months free · No credit card required · No spam, ever</p>
+      <div class="confirm-msg" id="hero-confirm">✓ You're on the list — we'll be in touch!</div>
+    </div>
+  </section>
+
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip">
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1476703993599-0035a21b051f?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1491349174775-aaaefdd81942?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+  </div>
+
+  <!-- PROOF -->
+  <div class="proof">
+    <div class="proof-inner">
+      <span class="label">Built for</span>
+      <div class="proof-stat"><span class="emoji">👴</span> Older adults preserving their legacy</div>
+      <div class="proof-stat"><span class="emoji">👨‍👩‍👧</span> Families capturing shared history</div>
+      <div class="proof-stat"><span class="emoji">✍️</span> Storytellers who believe every life matters</div>
+    </div>
+  </div>
+
+  <!-- INTRO SPLIT -->
+  <section class="intro-split">
+    <div class="container">
+      <div class="intro-inner">
+        <div class="intro-photo fade-up">
+          <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?auto=format&fit=crop&w=900&q=80" alt="Family gathering" />
+          <div class="intro-photo-badge">
+            <div>
+              <div class="stat">2,000+</div>
+              <div class="stat-label">memory prompts</div>
+            </div>
+          </div>
+        </div>
+        <div class="intro-text fade-up stagger-2">
+          <div class="section-label">✦ Why Yarn</div>
+          <h2 class="section-title">Stories that outlive us all</h2>
+          <p>Every family has stories that only one person remembers. The beach house summers. The first job nerves. The day everything changed. Yarn is built to help you capture them before they're gone.</p>
+          <p>Write naturally — Yarn organises everything for you. People, places, time periods, milestones. It all comes together into a memoir your family will treasure forever.</p>
+          <a href="#waitlist" class="btn-green">Start your story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header container">
+      <div class="section-label">✦ Everything you need</div>
+      <h2 class="section-title">Built for the <span class="grad">long story</span></h2>
+      <p class="section-desc">Every feature in Yarn exists to help you write more, worry less, and leave something lasting behind.</p>
+    </div>
+    <div class="features-grid container">
+      <div class="feat-card fade-up">
+        <div class="feat-icon">✍️</div>
+        <h3>Focused Writing Editor</h3>
+        <p>A clean, distraction-free editor built for stories. Type naturally — Yarn auto-tags the people, places, and topics you mention.</p>
+      </div>
+      <div class="feat-card fade-up stagger-2">
+        <div class="feat-icon">🕰️</div>
+        <h3>Timeline & Life Epochs</h3>
+        <p>See your life chronologically. Threads group into life epochs — Childhood, Young Adult, Middle Age, Later Years.</p>
+      </div>
+      <div class="feat-card fade-up stagger-3">
+        <div class="feat-icon">💡</div>
+        <h3>Thousands of Memory Prompts</h3>
+        <p>One tap surfaces a curated question to spark a memory — from childhood and school days to love, career, and hard-won wisdom.</p>
+      </div>
+      <div class="feat-card fade-up">
+        <div class="feat-icon">👥</div>
+        <h3>Editor Collaboration</h3>
+        <p>Invite a family member as an editor using a secure code. They can read your threads, ask questions, and help fill the gaps.</p>
+      </div>
+      <div class="feat-card fade-up stagger-2">
+        <div class="feat-icon">📸</div>
+        <h3>Photos, Audio & Video</h3>
+        <p>Attach photos, voice recordings, and video clips directly into your threads. Each with captions and tags so nothing gets lost.</p>
+      </div>
+      <div class="feat-card fade-up stagger-3">
+        <div class="feat-icon">📖</div>
+        <h3>Export Your Memoir</h3>
+        <p>Export as HTML, EPUB, or PDF. Share by AirDrop, email, or save to Files. Stored in open Markdown — never locked in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO FEATURE: Timeline -->
+  <section class="photo-feature" id="how">
+    <div class="pf-inner container">
+      <div class="pf-image fade-up">
+        <img src="https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?auto=format&fit=crop&w=900&q=80" alt="Family photo album" />
+      </div>
+      <div class="pf-text fade-up stagger-2">
+        <div class="section-label">🕰️ Timeline</div>
+        <h2>Your whole life,<br />in one view.</h2>
+        <p>Every thread you write, every milestone you record, every key date — all laid out in chronological order. Tap any event to open it, filter by person or place, and export selected moments.</p>
+        <ul class="check-list">
+          <li><span class="ck">✓</span> Pages, milestones, and key dates all unified</li>
+          <li><span class="ck">✓</span> 50+ content-aware icons automatically matched</li>
+          <li><span class="ck">✓</span> Colour-coded by life category</li>
+          <li><span class="ck">✓</span> Filter by person, place, or status</li>
+          <li><span class="ck">✓</span> Multi-select and export any slice of your story</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO FEATURE: Prompts (reversed) -->
+  <section class="photo-feature alt">
+    <div class="pf-inner rev container">
+      <div class="pf-image fade-up">
+        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80" alt="Writing" />
+      </div>
+      <div class="pf-text fade-up stagger-2">
+        <div class="section-label">💡 Memory Prompts</div>
+        <h2>Never face a<br />blank page again.</h2>
+        <p>Thousands of curated questions designed to spark imagination and unlock memories you didn't know you still had. Every day, a fresh prompt lands in your pocket.</p>
+        <ul class="check-list">
+          <li><span class="ck">✓</span> Thousands of questions across 10 life categories</li>
+          <li><span class="ck">✓</span> Daily push notifications (your schedule)</li>
+          <li><span class="ck">✓</span> Tap "Spark a different memory" for a new one</li>
+          <li><span class="ck">✓</span> Editors and family members can also send questions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO FEATURE: Collaboration -->
+  <section class="photo-feature">
+    <div class="pf-inner container">
+      <div class="pf-image fade-up">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Family collaboration" />
+      </div>
+      <div class="pf-text fade-up stagger-2">
+        <div class="section-label">👥 Collaboration</div>
+        <h2>You'll never write<br />alone.</h2>
+        <p>Invite a family member or close friend as an editor using a secure 8-character code. They can read your threads, ask questions, and encourage the journey — while you stay in full control.</p>
+        <ul class="check-list">
+          <li><span class="ck">✓</span> Invite editors with a secure 8-character code</li>
+          <li><span class="ck">✓</span> Editors can ask questions and offer encouragement</li>
+          <li><span class="ck">✓</span> Private threads stay completely hidden</li>
+          <li><span class="ck">✓</span> Revoke access any time, instantly</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="quote-strip">
+    <div class="container">
+      <p class="big-quote">"What smell takes you straight back to your childhood?"</p>
+      <p class="big-quote-attr">Sensory &amp; Emotional · One of thousands of prompts in Yarn</p>
+    </div>
+  </div>
+
+  <!-- PHOTO COLLAGE -->
+  <section class="collage-section">
+    <div class="container">
+      <div class="collage">
+        <div class="collage-item"><img src="https://images.unsplash.com/photo-1511895426328-dc8714191011?auto=format&fit=crop&w=900&q=80" alt="" /></div>
+        <div class="collage-item"><img src="https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+        <div class="collage-item"><img src="https://images.unsplash.com/photo-1470116945706-e6bf5d5a53ca?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+        <div class="collage-item"><img src="https://images.unsplash.com/photo-1506836467174-27f1042aa48c?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+        <div class="collage-item"><img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section class="prompts-section">
+    <div class="container">
+      <div class="section-label">✦ Thousands of prompts</div>
+      <h2 class="section-title">Every chapter of <span class="grad">a life, covered.</span></h2>
+      <p class="section-desc" style="margin:0 auto;">From your very first memory to the wisdom you've earned — Yarn's prompts cover every corner of a human life.</p>
+      <div class="prompt-chips">
+        <span class="prompt-chip">Childhood &amp; Family</span>
+        <span class="prompt-chip">School &amp; Education</span>
+        <span class="prompt-chip">Love &amp; Relationships</span>
+        <span class="prompt-chip">Career &amp; Work</span>
+        <span class="prompt-chip">Places &amp; Travel</span>
+        <span class="prompt-chip">Milestones &amp; Life Events</span>
+        <span class="prompt-chip">Hobbies &amp; Interests</span>
+        <span class="prompt-chip">Challenges &amp; Growth</span>
+        <span class="prompt-chip">Sensory &amp; Emotional</span>
+        <span class="prompt-chip">Wisdom &amp; Reflection</span>
+      </div>
+      <div class="big-prompt">
+        <span class="qq">"</span>
+        <div class="big-prompt-text">What is your earliest memory? Where were you, and who was with you?</div>
+        <div class="big-prompt-cat">Childhood &amp; Family · One of thousands of prompts</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-header container">
+      <div class="section-label">💰 Pricing</div>
+      <h2 class="section-title">Start free. <span class="grad">Your story, your way.</span></h2>
+      <p class="section-desc" style="margin:0 auto;">Two months free to explore — then a simple one-time fee plus a small monthly subscription.</p>
+    </div>
+    <div class="pricing-grid container">
+      <div class="price-card fade-up">
+        <div class="price-name">Free Trial</div>
+        <div><span class="price-num">$0</span></div>
+        <div class="price-note">First 2 months free</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">✓</span><span>Full access for 2 months</span></li>
+          <li><span class="ck">✓</span><span>Write &amp; edit threads</span></li>
+          <li><span class="ck">✓</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">✓</span><span>Timeline &amp; Dashboard</span></li>
+          <li><span class="ck">✓</span><span>Photos, audio &amp; video</span></li>
+          <li><span class="ck">✓</span><span>Download &amp; export your story</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn ghost">Get started free</a>
+      </div>
+      <div class="price-card featured fade-up stagger-2">
+        <div class="price-badge">⭐ Standard plan</div>
+        <div class="price-name">Lifetime + Subscription</div>
+        <div><span class="price-num">$10</span><span class="price-unit"> once</span></div>
+        <div class="price-note">+ $5 / month to keep writing</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">✓</span><span>Lifetime access — view &amp; download always</span></li>
+          <li><span class="ck">✓</span><span>Up to 50,000 words</span></li>
+          <li><span class="ck">✓</span><span>200 images or audio files</span></li>
+          <li><span class="ck">✓</span><span>Editor Collaboration</span></li>
+          <li><span class="ck">✓</span><span>Full export — HTML, EPUB &amp; PDF</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn solid">Join waitlist</a>
+      </div>
+      <div class="price-card fade-up stagger-3">
+        <div class="price-name">+ Extended Storage</div>
+        <div><span class="price-num">+$5</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">Added to your subscription</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">✓</span><span>Everything in the Standard plan</span></li>
+          <li><span class="ck">✓</span><span>400 images or audio files</span></li>
+          <li><span class="ck">✓</span><span>Up to 100,000 words</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn ghost">Join waitlist</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="waitlist">
+    <div class="container">
+      <div class="section-label">✦ Join the waitlist</div>
+      <h2 class="section-title">Be among the first<br /><span class="grad">to tell your story.</span></h2>
+      <p class="section-desc" style="margin:0 auto;">Yarn is launching soon. Join the waitlist for an exclusive early-access offer for founding members.</p>
+      <form class="final-cta-form" id="bottom-form" onsubmit="handleSignup(event,'bottom-confirm','bottom-form')">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-dark">Get early access →</button>
+      </form>
+      <p class="cta-note">Free to join · No credit card required</p>
+      <div class="confirm-light" id="bottom-confirm">✓ You're on the list — we'll be in touch soon!</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <img src="assets/yarn-logo.png" alt="Yarn" />
+          <span class="nav-logo-text">Yarn</span>
+        </a>
+        <p class="footer-tagline">Woven from life. Spun by you.<br />Made with ♥ for storytellers everywhere.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#waitlist">Join waitlist</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Story</h4>
+        <ul>
+          <li><a href="#">About Yarn</a></li>
+          <li><a href="#">Our mission</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help centre</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of use</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Yarn. All rights reserved.</p>
+      <p>Built with ♥ for storytellers everywhere.</p>
+    </div>
+  </footer>
+
+  <script>
+    function handleSignup(e, confirmId, formId) {
+      e.preventDefault();
+      const form = document.getElementById(formId);
+      form.style.opacity = '0'; form.style.pointerEvents = 'none';
+      document.getElementById(confirmId).classList.add('visible');
+    }
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

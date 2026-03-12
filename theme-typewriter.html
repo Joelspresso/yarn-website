@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yarn — Woven from life. Spun by you.</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --paper:    #F2E8D5;
+      --paper-dk: #E8D8BB;
+      --paper-lt: #FAF4E8;
+      --ink:      #1A1208;
+      --ink-lt:   #3D2E1A;
+      --rust:     #8B3A0F;
+      --rust-lt:  #B54D15;
+      --faded:    #6B5A3E;
+      --red-stamp:#9B2335;
+      --rope:     #8B6914;
+      --font-h:   'Special Elite', 'Courier New', monospace;
+      --font-b:   'Courier Prime', 'Courier New', monospace;
+      --font-s:   'Libre Baskerville', Georgia, serif;
+    }
+
+    body {
+      font-family: var(--font-b);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      /* Aged paper texture */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,18,8,0.96); backdrop-filter: blur(8px); border-bottom: 3px solid var(--rust); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { width: 34px; height: 34px; object-fit: contain; }
+    .nav-logo-text { font-family: var(--font-h); font-size: 22px; color: var(--paper); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: rgba(242,232,213,0.6); font-family: var(--font-b); font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--paper); }
+    .btn-nav { background: var(--rust); color: var(--paper); padding: 9px 22px; border: none; font-family: var(--font-b); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .2s; }
+    .btn-nav:hover { background: var(--rust-lt); }
+
+    /* ── ROPE DIVIDER ── */
+    .rope-divider { width: 100%; height: 24px; position: relative; overflow: hidden; background: transparent; margin: 0; }
+    .rope-divider::before { content: ''; display: block; width: 100%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(139,105,20,0.15) 8px, rgba(139,105,20,0.15) 9px), repeating-linear-gradient(90deg, rgba(139,105,20,0.4) 0, rgba(139,105,20,0.4) 2px, transparent 2px, transparent 12px); border-top: 2px solid rgba(139,105,20,0.5); border-bottom: 2px solid rgba(139,105,20,0.3); }
+    .rope-thick { height: 32px; }
+    .rope-thick::before { border-top: 3px solid rgba(139,105,20,0.7); border-bottom: 3px solid rgba(139,105,20,0.4); background: repeating-linear-gradient(90deg, rgba(139,105,20,0.5) 0, rgba(139,105,20,0.5) 3px, transparent 3px, transparent 10px, rgba(139,105,20,0.3) 10px, rgba(139,105,20,0.3) 13px, transparent 13px, transparent 20px); }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(26,18,8,0.75); }
+    /* Vignette */
+    .hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(10,6,2,0.6) 100%); }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 780px; padding: 140px 28px 80px; }
+    .hero-stamp { display: inline-block; border: 3px solid rgba(155,35,53,0.7); color: rgba(155,35,53,0.85); padding: 6px 18px; font-family: var(--font-b); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px; transform: rotate(-1deg); }
+    .hero h1 { font-family: var(--font-h); font-size: clamp(38px, 6vw, 72px); color: var(--paper); line-height: 1.15; margin-bottom: 24px; text-shadow: 3px 3px 0 rgba(0,0,0,0.3); letter-spacing: 0.02em; }
+    .hero h1 span { color: #D4A843; }
+    .hero-desc { font-family: var(--font-b); font-size: 17px; color: rgba(242,232,213,0.8); max-width: 560px; margin: 0 auto 40px; line-height: 1.8; }
+    .hero-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto 14px; border: 2px solid var(--rust); }
+    .hero-form input { flex: 1; padding: 14px 20px; border: none; font-size: 15px; font-family: var(--font-b); outline: none; background: rgba(242,232,213,0.95); color: var(--ink); }
+    .hero-form input::placeholder { color: var(--faded); }
+    .btn-hero { background: var(--rust); color: var(--paper); padding: 14px 24px; border: none; font-family: var(--font-b); font-size: 14px; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; white-space: nowrap; transition: background .2s; text-transform: uppercase; }
+    .btn-hero:hover { background: var(--rust-lt); }
+    .hero-note { font-size: 12px; color: rgba(242,232,213,0.45); letter-spacing: 0.06em; font-family: var(--font-b); }
+    .confirm-msg { display: none; margin-top: 16px; color: #8BC68A; font-weight: 700; font-size: 14px; letter-spacing: 0.05em; }
+    .confirm-msg.visible { display: block; }
+
+    /* ── PROOF ── */
+    .proof { background: var(--ink); padding: 20px 28px; }
+    .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px; }
+    .proof-stat { color: rgba(242,232,213,0.7); font-family: var(--font-b); font-size: 14px; letter-spacing: 0.05em; display: flex; align-items: center; gap: 10px; }
+    .proof-stat::before { content: '§'; color: var(--rust); font-size: 18px; }
+    .proof-label { color: rgba(242,232,213,0.3); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── CONTAINER / SECTIONS ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+    .section-stamp { display: inline-block; border: 2px solid var(--rust); color: var(--rust); font-family: var(--font-b); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; margin-bottom: 20px; }
+    .section-title { font-family: var(--font-h); font-size: clamp(28px, 4vw, 48px); color: var(--ink); line-height: 1.2; margin-bottom: 16px; }
+    .section-desc { font-family: var(--font-s); font-size: 17px; font-style: italic; color: var(--faded); line-height: 1.8; max-width: 580px; }
+    .grad { color: var(--rust); }
+
+    /* ── INTRO ── */
+    .intro { padding: 100px 0; }
+    .intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .typewriter-card { background: var(--paper-lt); border: 1px solid var(--paper-dk); padding: 40px; position: relative; box-shadow: 4px 4px 0 rgba(139,58,15,0.2); }
+    .typewriter-card::before { content: ''; position: absolute; top: -6px; left: -6px; right: 6px; bottom: 6px; border: 1px dashed rgba(139,58,15,0.3); pointer-events: none; }
+    .typewriter-line { font-family: var(--font-b); font-size: 15px; color: var(--ink-lt); line-height: 2; border-bottom: 1px solid rgba(139,105,20,0.15); padding-bottom: 4px; margin-bottom: 4px; }
+    .typewriter-line:last-child { border-bottom: none; }
+    .typewriter-line .cursor { display: inline-block; width: 2px; height: 16px; background: var(--ink); margin-left: 2px; vertical-align: middle; animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .card-stamp { position: absolute; top: 16px; right: 16px; border: 3px solid rgba(155,35,53,0.5); color: rgba(155,35,53,0.5); padding: 4px 10px; font-family: var(--font-b); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; transform: rotate(6deg); }
+    .intro-text { }
+    .intro-text p { font-family: var(--font-s); font-size: 17px; color: var(--faded); line-height: 1.85; margin-bottom: 20px; }
+    .btn-rust { display: inline-block; background: var(--rust); color: var(--paper); padding: 13px 28px; text-decoration: none; font-family: var(--font-b); font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background .2s; }
+    .btn-rust:hover { background: var(--rust-lt); }
+
+    /* ── FEATURES ── */
+    .features { padding: 90px 0; background: var(--paper-lt); border-top: 1px solid var(--paper-dk); border-bottom: 1px solid var(--paper-dk); }
+    .features-header { text-align: center; margin-bottom: 60px; }
+    .features-header .section-desc { margin: 16px auto 0; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .feat-card { background: var(--paper); border: 1px solid var(--paper-dk); padding: 32px 24px; position: relative; box-shadow: 3px 3px 0 rgba(139,105,20,0.15); transition: transform .2s, box-shadow .2s; }
+    .feat-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgba(139,58,15,0.25); }
+    .feat-icon { font-family: var(--font-h); font-size: 13px; color: var(--rust); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+    .feat-card h3 { font-family: var(--font-h); font-size: 19px; color: var(--ink); margin-bottom: 10px; line-height: 1.3; }
+    .feat-card p { font-family: var(--font-s); font-size: 14px; color: var(--faded); line-height: 1.8; font-style: italic; }
+
+    /* ── BIG FEATURES ── */
+    .big-feat { padding: 90px 0; }
+    .big-feat.alt { background: var(--paper-lt); }
+    .bf-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .bf-inner.rev { direction: rtl; }
+    .bf-inner.rev > * { direction: ltr; }
+    .bf-text h2 { font-family: var(--font-h); font-size: clamp(26px, 3.5vw, 42px); color: var(--ink); line-height: 1.25; margin-bottom: 18px; }
+    .bf-text p { font-family: var(--font-s); font-size: 16px; font-style: italic; color: var(--faded); line-height: 1.85; margin-bottom: 24px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-b); font-size: 14px; color: var(--ink-lt); }
+    .check-list li .ck { color: var(--rust); flex-shrink: 0; font-weight: 700; }
+    .vis-panel { background: var(--paper-lt); border: 1px solid var(--paper-dk); padding: 32px; box-shadow: 4px 4px 0 rgba(139,105,20,0.2); }
+    /* Timeline vis */
+    .tl-list { display: flex; flex-direction: column; gap: 0; }
+    .tl-row { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px dashed rgba(139,105,20,0.3); }
+    .tl-row:last-child { border-bottom: none; }
+    .tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--rust); margin-top: 5px; flex-shrink: 0; border: 2px solid var(--ink); }
+    .tl-dot.amber { background: #C88A3A; }
+    .tl-dot.green { background: #4A7C59; }
+    .tl-year { font-family: var(--font-b); font-size: 12px; color: var(--faded); letter-spacing: 0.05em; margin-bottom: 3px; }
+    .tl-title { font-family: var(--font-b); font-size: 14px; color: var(--ink); font-weight: 700; margin-bottom: 2px; }
+    .tl-meta { font-family: var(--font-b); font-size: 12px; color: var(--faded); }
+    /* Prompt vis */
+    .prompt-list { display: flex; flex-direction: column; gap: 16px; }
+    .p-item { padding: 16px; border-left: 3px solid rgba(139,58,15,0.2); }
+    .p-item.active { border-left-color: var(--rust); background: rgba(139,58,15,0.05); }
+    .p-cat { font-family: var(--font-b); font-size: 10px; color: var(--rust); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .p-q { font-family: var(--font-s); font-size: 14px; font-style: italic; color: var(--ink-lt); line-height: 1.6; }
+
+    /* ── ROPE SECTION ── */
+    .rope-section { position: relative; padding: 80px 0; text-align: center; overflow: hidden; }
+    .rope-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 120px; background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center; opacity: 0.12; }
+    .rope-quote { font-family: var(--font-h); font-size: clamp(22px, 3.5vw, 40px); color: var(--ink); max-width: 700px; margin: 0 auto 20px; line-height: 1.4; position: relative; z-index: 1; }
+    .rope-quote::before { content: '❝'; font-size: 80px; color: rgba(139,58,15,0.15); position: absolute; top: -30px; left: -20px; font-family: Georgia, serif; line-height: 1; }
+    .rope-attr { font-family: var(--font-b); font-size: 13px; color: var(--faded); letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
+
+    /* ── PROMPT CATEGORIES ── */
+    .prompts-section { padding: 90px 0; background: var(--paper-lt); }
+    .prompts-section .section-title, .prompts-section .section-stamp { text-align: center; display: block; margin-left: auto; margin-right: auto; }
+    .prompt-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 32px 0; }
+    .prompt-chip { border: 1px solid var(--paper-dk); background: var(--paper); color: var(--ink-lt); padding: 8px 18px; font-family: var(--font-b); font-size: 13px; letter-spacing: 0.03em; transition: all .2s; cursor: default; }
+    .prompt-chip:hover { background: var(--rust); color: var(--paper); border-color: var(--rust); }
+    .big-prompt { background: var(--ink); padding: 48px 40px; max-width: 660px; margin: 0 auto; text-align: center; position: relative; }
+    .big-prompt::before { content: ''; position: absolute; top: 6px; left: 6px; right: -6px; bottom: -6px; background: rgba(139,58,15,0.3); z-index: -1; }
+    .qq { font-family: var(--font-h); font-size: 64px; color: rgba(242,232,213,0.15); display: block; line-height: .8; margin-bottom: 16px; }
+    .big-prompt-text { font-family: var(--font-s); font-size: 22px; font-style: italic; color: var(--paper); line-height: 1.6; margin-bottom: 14px; }
+    .big-prompt-cat { font-family: var(--font-b); font-size: 11px; color: rgba(242,232,213,0.35); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── PRICING ── */
+    .pricing { padding: 90px 0; }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-header .section-desc { margin: 16px auto 0; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .price-card { background: var(--paper-lt); border: 1px solid var(--paper-dk); padding: 36px 28px; position: relative; }
+    .price-card.featured { background: var(--ink); border-color: var(--rust); box-shadow: 4px 4px 0 rgba(139,58,15,0.4); }
+    .price-badge { display: inline-block; background: var(--rust); color: var(--paper); font-family: var(--font-b); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; margin-bottom: 14px; }
+    .price-name { font-family: var(--font-h); font-size: 18px; color: var(--ink); margin-bottom: 16px; }
+    .price-card.featured .price-name { color: var(--paper); }
+    .price-num { font-family: var(--font-h); font-size: 52px; color: var(--rust); line-height: 1; }
+    .price-card.featured .price-num { color: #D4A843; }
+    .price-unit { font-family: var(--font-b); font-size: 16px; color: var(--faded); }
+    .price-card.featured .price-unit { color: rgba(242,232,213,0.4); }
+    .price-note { font-family: var(--font-b); font-size: 12px; color: var(--faded); margin-top: 4px; }
+    .price-card.featured .price-note { color: rgba(242,232,213,0.4); }
+    .price-divider { height: 1px; background: var(--paper-dk); margin: 24px 0; }
+    .price-card.featured .price-divider { background: rgba(242,232,213,0.15); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .price-features li { display: flex; gap: 10px; font-family: var(--font-b); font-size: 13px; color: var(--faded); }
+    .price-card.featured .price-features li { color: rgba(242,232,213,0.65); }
+    .price-features li .ck { color: var(--rust); font-weight: 700; flex-shrink: 0; }
+    .price-card.featured .price-features li .ck { color: #D4A843; }
+    .price-btn { display: block; text-align: center; padding: 13px; font-family: var(--font-b); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all .2s; }
+    .price-btn.solid { background: var(--rust); color: var(--paper); }
+    .price-btn.solid:hover { background: var(--rust-lt); }
+    .price-btn.ghost { background: transparent; color: var(--rust); border: 2px solid var(--rust); }
+    .price-btn.ghost:hover { background: var(--rust); color: var(--paper); }
+
+    /* ── FINAL CTA ── */
+    .final-cta { padding: 100px 0; text-align: center; background: var(--ink); }
+    .final-cta .section-title { color: var(--paper); }
+    .final-cta .section-stamp { color: rgba(212,168,67,0.8); border-color: rgba(212,168,67,0.5); }
+    .final-cta .section-desc { color: rgba(242,232,213,0.55); margin: 16px auto 0; }
+    .final-cta-form { display: flex; gap: 0; max-width: 480px; margin: 40px auto 14px; border: 2px solid var(--rust); }
+    .final-cta-form input { flex: 1; padding: 15px 20px; border: none; font-size: 15px; font-family: var(--font-b); outline: none; background: rgba(242,232,213,0.95); color: var(--ink); }
+    .final-cta-form input::placeholder { color: var(--faded); }
+    .btn-cta { background: var(--rust); color: var(--paper); padding: 15px 24px; border: none; font-family: var(--font-b); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .btn-cta:hover { background: var(--rust-lt); }
+    .cta-note { font-family: var(--font-b); font-size: 12px; color: rgba(242,232,213,0.3); letter-spacing: 0.06em; }
+    .confirm-light { display: none; margin-top: 16px; color: #8BC68A; font-weight: 700; }
+    .confirm-light.visible { display: block; }
+
+    /* ── FOOTER ── */
+    footer { background: #0E0904; padding: 60px 0 28px; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(242,232,213,0.08); }
+    .footer-brand .nav-logo-text { color: var(--paper); }
+    .footer-tagline { font-family: var(--font-s); font-size: 14px; font-style: italic; color: rgba(242,232,213,0.35); margin-top: 12px; line-height: 1.7; }
+    .footer-col h4 { font-family: var(--font-h); font-size: 13px; color: rgba(242,232,213,0.8); margin-bottom: 16px; letter-spacing: 0.05em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-family: var(--font-b); color: rgba(242,232,213,0.35); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .footer-col a:hover { color: rgba(242,232,213,0.8); }
+    .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; font-family: var(--font-b); font-size: 12px; color: rgba(242,232,213,0.2); letter-spacing: 0.04em; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+    .fade-up.in { opacity: 1; transform: none; }
+    .stagger-2 { transition-delay: .15s; }
+    .stagger-3 { transition-delay: .3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .intro-inner, .bf-inner, .bf-inner.rev { grid-template-columns: 1fr; gap: 40px; direction: ltr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-form { flex-direction: column; }
+      .final-cta-form { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="assets/yarn-logo.png" alt="Yarn" />
+        <span class="nav-logo-text">Yarn</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+      </ul>
+      <a href="#waitlist" class="btn-nav">Join the waitlist</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+      <div class="hero-stamp">Now accepting early access sign-ups</div>
+      <h1>Your life story,<br /><span>woven from life,<br />spun by you.</span></h1>
+      <p class="hero-desc">Yarn is the personal memoir platform that helps you capture your memories — one thread at a time — and weave them into a story worth passing on.</p>
+      <form class="hero-form" id="hero-form" onsubmit="handleSignup(event,'hero-confirm','hero-form')">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-hero">Get early access</button>
+      </form>
+      <p class="hero-note">2 months free · No credit card required · No spam, ever</p>
+      <div class="confirm-msg" id="hero-confirm">✓ You're on the list — we'll be in touch!</div>
+    </div>
+  </section>
+
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- PROOF -->
+  <div class="proof">
+    <div class="proof-inner">
+      <span class="proof-label">Built for</span>
+      <div class="proof-stat">Older adults preserving their legacy</div>
+      <div class="proof-stat">Families capturing shared history</div>
+      <div class="proof-stat">Storytellers who believe every life matters</div>
+    </div>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="container">
+      <div class="intro-inner">
+        <div class="typewriter-card fade-up">
+          <div class="card-stamp">Final</div>
+          <div class="typewriter-line">Title: The beach house at Whitby</div>
+          <div class="typewriter-line">Date: August 1978</div>
+          <div class="typewriter-line">People: @Mum, @Grandma Rose</div>
+          <div class="typewriter-line">Place: Whitby, North Yorkshire</div>
+          <div class="typewriter-line">&nbsp;</div>
+          <div class="typewriter-line">Every August without fail, Mum would</div>
+          <div class="typewriter-line">load us into the old Vauxhall and we'd</div>
+          <div class="typewriter-line">head north. Grandma Rose was always</div>
+          <div class="typewriter-line">waiting at the door, tea already on...</div>
+          <div class="typewriter-line">"The kettle's been on since Tuesday!"<span class="cursor"></span></div>
+        </div>
+        <div class="intro-text fade-up stagger-2">
+          <div class="section-stamp">§ Why Yarn</div>
+          <h2 class="section-title">Some stories only one person remembers</h2>
+          <p>Every family has stories that only one person can tell. Yarn is built to help you capture them before they're gone — and turn them into a memoir your family will treasure forever.</p>
+          <p>Write naturally, the way you'd tell a story to a friend. Yarn takes care of everything else.</p>
+          <a href="#waitlist" class="btn-rust">Start your story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header container">
+      <div class="section-stamp">§ Everything you need</div>
+      <h2 class="section-title">Built for the <span class="grad">long story</span></h2>
+      <p class="section-desc">Every feature in Yarn exists to help you write more, worry less, and leave something lasting behind.</p>
+    </div>
+    <div class="features-grid container">
+      <div class="feat-card fade-up">
+        <div class="feat-icon">[ Writing Editor ]</div>
+        <h3>Focused Writing Editor</h3>
+        <p>A clean, distraction-free editor built for stories. Type naturally — Yarn auto-tags the people, places, and topics you mention. Autosaves every few seconds.</p>
+      </div>
+      <div class="feat-card fade-up stagger-2">
+        <div class="feat-icon">[ Timeline ]</div>
+        <h3>Timeline & Life Epochs</h3>
+        <p>See your life chronologically. Threads group into life epochs — Childhood, Young Adult, Middle Age, Later Years — so the shape of your story becomes clear.</p>
+      </div>
+      <div class="feat-card fade-up stagger-3">
+        <div class="feat-icon">[ Prompts ]</div>
+        <h3>Thousands of Memory Prompts</h3>
+        <p>One tap surfaces a curated question to spark a memory — from childhood and school days to love, career turning points, and hard-won wisdom.</p>
+      </div>
+      <div class="feat-card fade-up">
+        <div class="feat-icon">[ Collaboration ]</div>
+        <h3>Editor Collaboration</h3>
+        <p>Invite a family member as an editor using a secure 8-character code. They can read your threads, ask questions, and help fill the gaps.</p>
+      </div>
+      <div class="feat-card fade-up stagger-2">
+        <div class="feat-icon">[ Media ]</div>
+        <h3>Photos, Audio & Video</h3>
+        <p>Attach photos, voice recordings, and video clips directly into your threads. Each with captions and tags so nothing gets lost.</p>
+      </div>
+      <div class="feat-card fade-up stagger-3">
+        <div class="feat-icon">[ Export ]</div>
+        <h3>Export Your Memoir</h3>
+        <p>Export as HTML, EPUB, or PDF. Share by AirDrop, email, or save to Files. Stored in open Markdown — never locked in.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rope-divider"></div>
+
+  <!-- BIG FEATURE: Timeline -->
+  <section class="big-feat" id="how">
+    <div class="bf-inner container">
+      <div class="bf-text fade-up">
+        <div class="section-stamp">§ Timeline</div>
+        <h2>Your whole life,<br />in one view.</h2>
+        <p>Every thread you write, every milestone you record, every key date from your life — all laid out in chronological order. Tap any event to open it, filter by person or place, and export selected moments.</p>
+        <ul class="check-list">
+          <li><span class="ck">»</span> Pages, milestones, and key dates all unified</li>
+          <li><span class="ck">»</span> 50+ content-aware icons automatically matched</li>
+          <li><span class="ck">»</span> Colour-coded by life category</li>
+          <li><span class="ck">»</span> Filter by person, place, or status</li>
+          <li><span class="ck">»</span> Multi-select and export any slice of your story</li>
+        </ul>
+      </div>
+      <div class="vis-panel fade-up stagger-2">
+        <div style="font-family:var(--font-b);font-size:11px;color:var(--rust);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">— Your timeline —</div>
+        <div class="tl-list">
+          <div class="tl-row"><div class="tl-dot"></div><div><div class="tl-year">14 June 2003</div><div class="tl-title">💍 Got married</div><div class="tl-meta">Milestone · St. Mary's Church</div></div></div>
+          <div class="tl-row"><div class="tl-dot amber"></div><div><div class="tl-year">September 1998</div><div class="tl-title">🏠 Moved to Edinburgh</div><div class="tl-meta">Thread · 312 words</div></div></div>
+          <div class="tl-row"><div class="tl-dot green"></div><div><div class="tl-year">June 1994</div><div class="tl-title">🎓 Graduated from Leeds</div><div class="tl-meta">Milestone · Final</div></div></div>
+          <div class="tl-row"><div class="tl-dot"></div><div><div class="tl-year">Summer 1987</div><div class="tl-title">💼 First job at the printing press</div><div class="tl-meta">Thread · 207 words</div></div></div>
+          <div class="tl-row"><div class="tl-dot amber"></div><div><div class="tl-year">August 1978</div><div class="tl-title">☀️ The beach house at Whitby</div><div class="tl-meta">Thread · 247 words · Final</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- BIG FEATURE: Prompts -->
+  <section class="big-feat alt">
+    <div class="bf-inner rev container">
+      <div class="bf-text fade-up">
+        <div class="section-stamp">§ Memory Prompts</div>
+        <h2>Never face a<br />blank page again.</h2>
+        <p>Thousands of curated questions designed to spark imagination and unlock memories you didn't know you still had. Every day, a fresh prompt lands in your pocket — ready when you are.</p>
+        <ul class="check-list">
+          <li><span class="ck">»</span> Thousands of questions across 10 life categories</li>
+          <li><span class="ck">»</span> Daily push notifications (your schedule)</li>
+          <li><span class="ck">»</span> Tap to get a fresh prompt any time</li>
+          <li><span class="ck">»</span> Editors and family members can also send questions</li>
+        </ul>
+      </div>
+      <div class="vis-panel fade-up stagger-2">
+        <div style="font-family:var(--font-b);font-size:11px;color:var(--rust);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">— Today's prompts —</div>
+        <div class="prompt-list">
+          <div class="p-item active"><div class="p-cat">Childhood &amp; Family</div><div class="p-q">"What is your earliest memory? Where were you, and who was with you?"</div></div>
+          <div class="p-item"><div class="p-cat">Wisdom &amp; Reflection</div><div class="p-q">"What would you tell your 20-year-old self, knowing everything you know now?"</div></div>
+          <div class="p-item"><div class="p-cat">Places &amp; Travel</div><div class="p-q">"What place has stayed with you most? Describe it exactly as you remember it."</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROPE QUOTE -->
+  <div class="rope-divider rope-thick"></div>
+  <section class="rope-section">
+    <div class="container">
+      <p class="rope-quote">What smell takes you straight back to your childhood?</p>
+      <p class="rope-attr">Sensory &amp; Emotional · One of thousands of prompts in Yarn</p>
+    </div>
+  </section>
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- PROMPT CATEGORIES -->
+  <section class="prompts-section">
+    <div class="container" style="text-align:center;">
+      <div class="section-stamp">§ Thousands of prompts</div>
+      <h2 class="section-title">Every chapter of <span class="grad">a life, covered.</span></h2>
+      <p class="section-desc" style="margin:16px auto 0;">From your first memory to the wisdom you've earned — Yarn's prompts cover every corner of a human life.</p>
+      <div class="prompt-chips">
+        <span class="prompt-chip">Childhood &amp; Family</span>
+        <span class="prompt-chip">School &amp; Education</span>
+        <span class="prompt-chip">Love &amp; Relationships</span>
+        <span class="prompt-chip">Career &amp; Work</span>
+        <span class="prompt-chip">Places &amp; Travel</span>
+        <span class="prompt-chip">Milestones &amp; Life Events</span>
+        <span class="prompt-chip">Hobbies &amp; Interests</span>
+        <span class="prompt-chip">Challenges &amp; Growth</span>
+        <span class="prompt-chip">Sensory &amp; Emotional</span>
+        <span class="prompt-chip">Wisdom &amp; Reflection</span>
+      </div>
+      <div class="big-prompt">
+        <span class="qq">"</span>
+        <div class="big-prompt-text">How did you first meet your partner? What do you remember most about that day?</div>
+        <div class="big-prompt-cat">Love &amp; Relationships · One of thousands of prompts</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-header container">
+      <div class="section-stamp">§ Pricing</div>
+      <h2 class="section-title">Start free. <span class="grad">Your story, your way.</span></h2>
+      <p class="section-desc" style="margin:16px auto 0;">Two months free to explore — then a simple one-time fee plus a small monthly subscription.</p>
+    </div>
+    <div class="pricing-grid container">
+      <div class="price-card fade-up">
+        <div class="price-name">Free Trial</div>
+        <div><span class="price-num">$0</span></div>
+        <div class="price-note">First 2 months free</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">»</span><span>Full access for 2 months</span></li>
+          <li><span class="ck">»</span><span>Write &amp; edit threads</span></li>
+          <li><span class="ck">»</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">»</span><span>Timeline &amp; Dashboard</span></li>
+          <li><span class="ck">»</span><span>Photos, audio &amp; video</span></li>
+          <li><span class="ck">»</span><span>Download &amp; export your story</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn ghost">Get started free</a>
+      </div>
+      <div class="price-card featured fade-up stagger-2">
+        <div class="price-badge">Standard plan</div>
+        <div class="price-name">Lifetime + Subscription</div>
+        <div><span class="price-num">$10</span><span class="price-unit"> once</span></div>
+        <div class="price-note">+ $5 / month to keep writing</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">»</span><span>Lifetime access — always</span></li>
+          <li><span class="ck">»</span><span>Up to 50,000 words</span></li>
+          <li><span class="ck">»</span><span>200 images or audio files</span></li>
+          <li><span class="ck">»</span><span>Editor Collaboration</span></li>
+          <li><span class="ck">»</span><span>Full export — HTML, EPUB &amp; PDF</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn solid">Join waitlist</a>
+      </div>
+      <div class="price-card fade-up stagger-3">
+        <div class="price-name">+ Extended Storage</div>
+        <div><span class="price-num">+$5</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">Added to your subscription</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="ck">»</span><span>Everything in Standard plan</span></li>
+          <li><span class="ck">»</span><span>400 images or audio files</span></li>
+          <li><span class="ck">»</span><span>Up to 100,000 words</span></li>
+        </ul>
+        <a href="#waitlist" class="price-btn ghost">Join waitlist</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="rope-divider rope-thick"></div>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="waitlist">
+    <div class="container">
+      <div class="section-stamp">§ Join the waitlist</div>
+      <h2 class="section-title">Be among the first<br /><span class="grad">to tell your story.</span></h2>
+      <p class="section-desc">Yarn is launching soon. Join the waitlist for an exclusive early-access offer for founding members.</p>
+      <form class="final-cta-form" id="bottom-form" onsubmit="handleSignup(event,'bottom-confirm','bottom-form')">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-cta">Get early access</button>
+      </form>
+      <p class="cta-note">Free to join · No credit card required</p>
+      <div class="confirm-light" id="bottom-confirm">✓ You're on the list — we'll be in touch soon!</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo"><img src="assets/yarn-logo.png" alt="Yarn" /><span class="nav-logo-text">Yarn</span></a>
+        <p class="footer-tagline">Woven from life. Spun by you.<br />Made with ♥ for storytellers everywhere.</p>
+      </div>
+      <div class="footer-col"><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#how">How it works</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#waitlist">Join waitlist</a></li></ul></div>
+      <div class="footer-col"><h4>Story</h4><ul><li><a href="#">About Yarn</a></li><li><a href="#">Our mission</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help centre</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of use</a></li><li><a href="#">Contact us</a></li></ul></div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Yarn. All rights reserved.</p>
+      <p>Built with ♥ for storytellers everywhere.</p>
+    </div>
+  </footer>
+
+  <script>
+    function handleSignup(e, confirmId, formId) {
+      e.preventDefault();
+      const form = document.getElementById(formId);
+      form.style.opacity = '0'; form.style.pointerEvents = 'none';
+      document.getElementById(confirmId).classList.add('visible');
+    }
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
