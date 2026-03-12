@@ -139,6 +139,7 @@
       position: relative;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -1205,6 +1206,94 @@
     .stagger-4 { transition-delay: 0.4s; }
     .stagger-5 { transition-delay: 0.5s; }
     .stagger-6 { transition-delay: 0.6s; }
+
+    /* ─── Tablet (≤768px) ────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .hero { padding: 110px 20px 80px; }
+      .features { padding: 80px 20px; }
+      .big-feature { padding: 80px 20px; }
+      .big-feature-inner { gap: 40px; }
+      .prompts-cta { padding: 80px 20px; }
+      .pricing { padding: 80px 20px; }
+      .final-cta { padding: 100px 20px; }
+      footer { padding: 48px 20px 32px; }
+
+      /* Hero mockup — constrain and clip so it doesn't overflow right */
+      .hero-mockup { max-width: 100%; overflow: hidden; }
+      .mockup-frame { overflow: hidden; }
+      .mockup-app { grid-template-columns: 1fr; }
+      .mockup-sidebar { display: none; }
+    }
+
+    /* ─── Mobile (≤480px) ────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      /* Nav */
+      .nav-inner { height: 56px; }
+      .btn-nav { font-size: 13px; padding: 8px 14px; }
+
+      /* Hero */
+      .hero { padding: 92px 20px 56px; min-height: auto; }
+      .hero-content { max-width: 100%; }
+      .hero h1 { font-size: 38px; letter-spacing: -1px; }
+      .hero-sub { font-size: 17px; }
+      .hero-desc { font-size: 15px; margin-bottom: 36px; }
+      .hero-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 22px; }
+      .hero-form { flex-direction: column; max-width: 100%; gap: 10px; }
+      .hero-form input[type="email"] { flex: 1 1 100%; width: 100%; min-width: 0; }
+      .btn-hero { width: 100%; justify-content: center; }
+      .hero-note { font-size: 12px; }
+
+      /* Hero mockup: full-bleed, hide sidebar */
+      .hero-mockup { margin: 36px -20px 0; max-width: calc(100% + 40px); overflow: hidden; }
+      .mockup-frame { border-radius: 0; border-left: none; border-right: none; padding: 14px; overflow: hidden; }
+      .mockup-sidebar { display: none; }
+      .mockup-app { grid-template-columns: 1fr; }
+      .mockup-bar { margin-bottom: 14px; }
+
+      /* Social proof */
+      .proof-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .proof-stat { width: 100%; }
+
+      /* Features */
+      .features { padding: 64px 20px; }
+      .features-header { margin-bottom: 36px; }
+      .section-title { font-size: 32px; letter-spacing: -0.8px; }
+      .section-desc { font-size: 15px; }
+      .feat-card { padding: 28px 24px; }
+
+      /* Big feature sections */
+      .big-feature { padding: 64px 20px; }
+      .big-feature-inner { gap: 32px; }
+      .big-feature-title { font-size: 28px; letter-spacing: -0.5px; }
+      .big-feature-desc { font-size: 15px; }
+      .vis-panel { padding: 20px; }
+
+      /* Prompts section */
+      .prompts-cta { padding: 64px 20px; }
+      .big-prompt-card { padding: 28px 20px; }
+      .big-prompt-card .quot { font-size: 44px; }
+      .big-prompt-card .prompt-text { font-size: 18px; }
+
+      /* Pricing */
+      .pricing { padding: 64px 20px; }
+      .pricing-header { margin-bottom: 36px; }
+      .pricing-header .section-title { color: #fff; }
+      .price-card { padding: 28px 20px; }
+      .price-num { font-size: 40px; }
+
+      /* Final CTA */
+      .final-cta { padding: 72px 20px; }
+      .final-cta-form { flex-direction: column; max-width: 100%; gap: 10px; }
+      .final-cta-form input[type="email"] { flex: 1 1 100%; width: 100%; min-width: 0; }
+      .btn-light { width: 100%; }
+
+      /* Footer */
+      footer { padding: 44px 20px 28px; }
+      .footer-inner { gap: 32px; }
+      .footer-links-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
 
   </style>
 </head>
