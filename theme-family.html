@@ -137,9 +137,8 @@
 
     /* ── COLLAGE ── */
     .collage-section { padding: 80px 0 0; }
-    .collage { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 260px; gap: 6px; border-radius: 24px; overflow: hidden; }
+    .collage { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: 6px; border-radius: 24px; overflow: hidden; }
     .collage-item { overflow: hidden; }
-    .collage-item:first-child { grid-row: span 2; }
     .collage-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
     .collage-item:hover img { transform: scale(1.04); }
 
@@ -205,7 +204,6 @@
       .features-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
       .collage { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-      .collage-item:first-child { grid-row: span 1; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
       .photo-strip { grid-template-columns: repeat(2, 1fr); }
     }
@@ -256,10 +254,10 @@
 
   <!-- PHOTO STRIP -->
   <div class="photo-strip">
-    <div class="photo-strip-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
-    <div class="photo-strip-item"><img src="kitchen.png" alt="" /></div>
-    <div class="photo-strip-item"><img src="univila.png" alt="" /></div>
-    <div class="photo-strip-item"><img src="help.png" alt="" /></div>
+    <div class="photo-strip-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="Family on the beach" /></div>
+    <div class="photo-strip-item"><img src="saili.png" alt="Father and son sailing" /></div>
+    <div class="photo-strip-item"><img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family at their new home" /></div>
+    <div class="photo-strip-item"><img src="kitchen.png" alt="Family in the kitchen" /></div>
   </div>
 
   <!-- PROOF -->
@@ -277,19 +275,19 @@
     <div class="container">
       <div class="intro-inner">
         <div class="intro-photo fade-up">
-          <img src="kitchen.png" alt="Family gathering" />
+          <img src="mylife.png" alt="Grandfather sharing his memoir with granddaughter" />
           <div class="intro-photo-badge">
             <div>
-              <div class="stat">2,000+</div>
-              <div class="stat-label">memory prompts</div>
+              <div class="stat">PDF · EPUB · Print</div>
+              <div class="stat-label">export formats</div>
             </div>
           </div>
         </div>
         <div class="intro-text fade-up stagger-2">
-          <div class="section-label">✦ Why Yarn</div>
-          <h2 class="section-title">Stories that outlive us all</h2>
-          <p>Every family has stories that only one person remembers. The beach house summers. The first job nerves. The day everything changed. Yarn is built to help you capture them before they're gone.</p>
-          <p>Write naturally — Yarn organises everything for you. People, places, time periods, milestones. It all comes together into a memoir your family will treasure forever.</p>
+          <div class="section-label">📖 Print &amp; Publish</div>
+          <h2 class="section-title">Yarn is designed to make printing and publishing easy</h2>
+          <p>When your story is ready, Yarn makes it simple to share it with the people who matter. Export a beautifully formatted PDF ready to send to a printer, generate an EPUB for Kindle and Apple Books, or create a Markdown archive your family can keep forever.</p>
+          <p>One tap. Your life story — in their hands.</p>
           <a href="#waitlist" class="btn-green">Start your story →</a>
         </div>
       </div>
@@ -341,7 +339,7 @@
   <section class="photo-feature" id="how">
     <div class="pf-inner container">
       <div class="pf-image fade-up">
-        <img src="univila.png" alt="Family photo album" />
+        <img src="saili.png" alt="Father and son sailing" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">🕰️ Timeline</div>
@@ -362,7 +360,7 @@
   <section class="photo-feature alt">
     <div class="pf-inner rev container">
       <div class="pf-image fade-up">
-        <img src="help.png" alt="Writing" />
+        <img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family memories" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">💡 Memory Prompts</div>
@@ -382,7 +380,7 @@
   <section class="photo-feature">
     <div class="pf-inner container">
       <div class="pf-image fade-up">
-        <img src="help.png" alt="Family collaboration" />
+        <img src="help.png" alt="Sharing memories together on a tablet" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">👥 Collaboration</div>
@@ -410,11 +408,12 @@
   <section class="collage-section">
     <div class="container">
       <div class="collage">
-        <div class="collage-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
-        <div class="collage-item"><img src="kitchen.png" alt="" /></div>
-        <div class="collage-item"><img src="univila.png" alt="" /></div>
-        <div class="collage-item"><img src="help.png" alt="" /></div>
-        <div class="collage-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
+        <div class="collage-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="Family on the beach" /></div>
+        <div class="collage-item"><img src="saili.png" alt="Father and son sailing" /></div>
+        <div class="collage-item"><img src="kitchen.png" alt="Family in the kitchen" /></div>
+        <div class="collage-item"><img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family at their new home" /></div>
+        <div class="collage-item"><img src="univila.png" alt="Family gathering" /></div>
+        <div class="collage-item"><img src="help.png" alt="Sharing memories" /></div>
       </div>
     </div>
   </section>
