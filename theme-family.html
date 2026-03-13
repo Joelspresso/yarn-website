@@ -13,17 +13,17 @@
     html { scroll-behavior: smooth; }
 
     :root {
-      --green:    #4A7C59;
-      --green-lt: #6A9E78;
-      --green-dk: #2E5238;
-      --coral:    #D96B4A;
+      --green:    #D97535;
+      --green-lt: #E8924A;
+      --green-dk: #B85E20;
+      --coral:    #C9B5A4;
       --amber:    #C88A3A;
-      --brown:    #3D2B1F;
-      --cream:    #FBF6EE;
-      --card:     #FFFFFF;
-      --border:   #EAE0D0;
-      --text:     #2A1E14;
-      --muted:    #7A6555;
+      --brown:    #3D2010;
+      --cream:    #F5EDE5;
+      --card:     #FDF8F4;
+      --border:   #E8D5C4;
+      --text:     #2A1608;
+      --muted:    #7A5C48;
       --font-h:   'Lora', Georgia, serif;
       --font-b:   'Nunito', system-ui, sans-serif;
     }
@@ -31,7 +31,7 @@
     body { font-family: var(--font-b); background: var(--cream); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* ── NAV ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(251,246,238,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245,237,229,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
     .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
@@ -44,13 +44,13 @@
 
     /* ── HERO ── */
     .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191011?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center top; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('Gemini_Generated_Image_yury28yury28yury.png'); background-size: cover; background-position: center top; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(42,30,20,0.55) 0%, rgba(42,30,20,0.35) 50%, rgba(42,30,20,0.7) 100%); }
     .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; padding: 140px 28px 80px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 7px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 28px; }
-    .hero-badge .dot { width: 7px; height: 7px; background: #6DD98A; border-radius: 50%; }
+    .hero-badge .dot { width: 7px; height: 7px; background: #F0C070; border-radius: 50%; }
     .hero h1 { font-family: var(--font-h); font-size: clamp(42px, 7vw, 76px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
-    .hero h1 em { font-style: italic; color: #F0D090; }
+    .hero h1 em { font-style: italic; color: #FDDBA0; }
     .hero-desc { font-size: 18px; color: rgba(255,255,255,0.88); max-width: 540px; margin: 0 auto 36px; line-height: 1.7; }
     .hero-form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto 14px; }
     .hero-form input { flex: 1; padding: 14px 20px; border-radius: 30px; border: none; font-size: 15px; font-family: var(--font-b); outline: none; background: rgba(255,255,255,0.95); color: var(--text); }
@@ -68,7 +68,7 @@
     .photo-strip-item:hover img { transform: scale(1.04); }
 
     /* ── PROOF BAR ── */
-    .proof { background: var(--green); padding: 18px 28px; }
+    .proof { background: var(--brown); padding: 18px 28px; }
     .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; }
     .proof-inner .label { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
     .proof-stat { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; font-size: 14px; }
@@ -76,7 +76,7 @@
 
     /* ── SECTION COMMONS ── */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
-    .section-label { display: inline-block; background: #E8F2EB; color: var(--green-dk); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .section-label { display: inline-block; background: #F5E2D0; color: var(--green-dk); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
     .section-title { font-family: var(--font-h); font-size: clamp(30px, 4vw, 46px); font-weight: 700; color: var(--brown); line-height: 1.15; margin-bottom: 16px; }
     .section-desc { font-size: 17px; color: var(--muted); max-width: 580px; line-height: 1.7; }
     .grad { color: var(--green); }
@@ -87,7 +87,7 @@
     .intro-photo { position: relative; }
     .intro-photo img { width: 100%; border-radius: 24px; display: block; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
     .intro-photo-badge { position: absolute; bottom: -20px; left: 24px; background: #fff; border-radius: 16px; padding: 14px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 12px; }
-    .intro-photo-badge .stat { font-family: var(--font-h); font-size: 28px; font-weight: 700; color: var(--green); line-height: 1; }
+    .intro-photo-badge .stat { font-family: var(--font-h); font-size: 28px; font-weight: 700; color: var(--green-dk); line-height: 1; }
     .intro-photo-badge .stat-label { font-size: 13px; color: var(--muted); font-weight: 600; }
     .intro-text { padding-top: 20px; }
     .intro-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
@@ -121,7 +121,7 @@
     .check-list li .ck { color: var(--green); font-weight: 800; font-size: 16px; margin-top: 1px; flex-shrink: 0; }
 
     /* ── QUOTE STRIP ── */
-    .quote-strip { background: var(--green-dk); padding: 80px 0; text-align: center; }
+    .quote-strip { background: var(--brown); padding: 80px 0; text-align: center; }
     .big-quote { font-family: var(--font-h); font-size: clamp(26px, 4vw, 48px); font-style: italic; color: rgba(255,255,255,0.95); max-width: 760px; margin: 0 auto 24px; line-height: 1.35; }
     .big-quote-attr { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; }
 
@@ -130,7 +130,7 @@
     .prompt-chips { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 36px 0; }
     .prompt-chip { background: #fff; border: 1.5px solid var(--border); color: var(--brown); padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 600; transition: all .2s; cursor: default; }
     .prompt-chip:hover { background: var(--green); color: #fff; border-color: var(--green); }
-    .big-prompt { background: var(--green-dk); border-radius: 24px; padding: 48px 40px; max-width: 680px; margin: 0 auto; text-align: center; }
+    .big-prompt { background: var(--brown); border-radius: 24px; padding: 48px 40px; max-width: 680px; margin: 0 auto; text-align: center; }
     .big-prompt .qq { font-size: 72px; line-height: .6; color: rgba(255,255,255,0.25); font-family: var(--font-h); margin-bottom: 20px; display: block; }
     .big-prompt-text { font-family: var(--font-h); font-size: 24px; font-style: italic; color: #fff; line-height: 1.5; margin-bottom: 16px; }
     .big-prompt-cat { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -148,12 +148,12 @@
     .pricing-header { text-align: center; margin-bottom: 56px; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .price-card { background: var(--cream); border-radius: 24px; padding: 36px 28px; border: 1.5px solid var(--border); position: relative; }
-    .price-card.featured { background: var(--green-dk); border-color: var(--green-dk); }
+    .price-card.featured { background: var(--brown); border-color: var(--brown); }
     .price-badge { background: var(--amber); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; padding: 5px 14px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
     .price-name { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 16px; }
     .price-card.featured .price-name { color: #fff; }
     .price-num { font-family: var(--font-h); font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
-    .price-card.featured .price-num { color: #A8E6BA; }
+    .price-card.featured .price-num { color: #FDDBA0; }
     .price-unit { font-size: 18px; color: var(--muted); }
     .price-card.featured .price-unit { color: rgba(255,255,255,0.5); }
     .price-note { font-size: 13px; color: var(--muted); margin-top: 4px; }
@@ -164,7 +164,7 @@
     .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
     .price-card.featured .price-features li { color: rgba(255,255,255,0.75); }
     .price-features li .ck { color: var(--green); font-weight: 800; flex-shrink: 0; }
-    .price-card.featured .price-features li .ck { color: #A8E6BA; }
+    .price-card.featured .price-features li .ck { color: #FDDBA0; }
     .price-btn { display: block; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all .2s; }
     .price-btn.solid { background: #fff; color: var(--green-dk); }
     .price-btn.solid:hover { background: #E8F2EB; }
@@ -179,11 +179,11 @@
     .btn-dark { background: var(--green-dk); color: #fff; padding: 15px 28px; border-radius: 30px; border: none; font-size: 15px; font-weight: 700; font-family: var(--font-b); cursor: pointer; white-space: nowrap; transition: background .2s; }
     .btn-dark:hover { background: var(--green); }
     .cta-note { font-size: 13px; color: var(--muted); }
-    .confirm-light { display: none; margin-top: 16px; color: var(--green); font-weight: 700; }
+    .confirm-light { display: none; margin-top: 16px; color: var(--green-dk); font-weight: 700; }
     .confirm-light.visible { display: block; }
 
     /* ── FOOTER ── */
-    footer { background: var(--brown); padding: 60px 0 32px; }
+    footer { background: #2A1608; padding: 60px 0 32px; }
     .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .footer-brand .nav-logo-text { color: #fff; }
     .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 12px; line-height: 1.6; }
@@ -256,10 +256,10 @@
 
   <!-- PHOTO STRIP -->
   <div class="photo-strip">
-    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1476703993599-0035a21b051f?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1491349174775-aaaefdd81942?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+    <div class="photo-strip-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
+    <div class="photo-strip-item"><img src="kitchen.png" alt="" /></div>
+    <div class="photo-strip-item"><img src="univila.png" alt="" /></div>
+    <div class="photo-strip-item"><img src="help.png" alt="" /></div>
   </div>
 
   <!-- PROOF -->
@@ -277,7 +277,7 @@
     <div class="container">
       <div class="intro-inner">
         <div class="intro-photo fade-up">
-          <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?auto=format&fit=crop&w=900&q=80" alt="Family gathering" />
+          <img src="kitchen.png" alt="Family gathering" />
           <div class="intro-photo-badge">
             <div>
               <div class="stat">2,000+</div>
@@ -341,7 +341,7 @@
   <section class="photo-feature" id="how">
     <div class="pf-inner container">
       <div class="pf-image fade-up">
-        <img src="https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?auto=format&fit=crop&w=900&q=80" alt="Family photo album" />
+        <img src="univila.png" alt="Family photo album" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">🕰️ Timeline</div>
@@ -362,7 +362,7 @@
   <section class="photo-feature alt">
     <div class="pf-inner rev container">
       <div class="pf-image fade-up">
-        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80" alt="Writing" />
+        <img src="help.png" alt="Writing" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">💡 Memory Prompts</div>
@@ -382,7 +382,7 @@
   <section class="photo-feature">
     <div class="pf-inner container">
       <div class="pf-image fade-up">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Family collaboration" />
+        <img src="help.png" alt="Family collaboration" />
       </div>
       <div class="pf-text fade-up stagger-2">
         <div class="section-label">👥 Collaboration</div>
@@ -410,11 +410,11 @@
   <section class="collage-section">
     <div class="container">
       <div class="collage">
-        <div class="collage-item"><img src="https://images.unsplash.com/photo-1511895426328-dc8714191011?auto=format&fit=crop&w=900&q=80" alt="" /></div>
-        <div class="collage-item"><img src="https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-        <div class="collage-item"><img src="https://images.unsplash.com/photo-1470116945706-e6bf5d5a53ca?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-        <div class="collage-item"><img src="https://images.unsplash.com/photo-1506836467174-27f1042aa48c?auto=format&fit=crop&w=600&q=80" alt="" /></div>
-        <div class="collage-item"><img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80" alt="" /></div>
+        <div class="collage-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
+        <div class="collage-item"><img src="kitchen.png" alt="" /></div>
+        <div class="collage-item"><img src="univila.png" alt="" /></div>
+        <div class="collage-item"><img src="help.png" alt="" /></div>
+        <div class="collage-item"><img src="Gemini_Generated_Image_yury28yury28yury.png" alt="" /></div>
       </div>
     </div>
   </section>
