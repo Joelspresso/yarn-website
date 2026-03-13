@@ -101,24 +101,28 @@
     .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
     .feat-card { background: var(--cream); border-radius: 20px; padding: 36px 28px; border: 1px solid var(--border); transition: transform .25s, box-shadow .25s; }
     .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
-    .feat-icon { font-size: 36px; margin-bottom: 16px; }
     .feat-card h3 { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 10px; }
     .feat-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
-    /* ── PHOTO FEATURE SECTIONS ── */
-    .photo-feature { padding: 100px 0; }
-    .photo-feature.alt { background: #fff; }
-    .pf-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .pf-inner.rev { direction: rtl; }
-    .pf-inner.rev > * { direction: ltr; }
-    .pf-image { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
-    .pf-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
-    .pf-text { }
-    .pf-text h2 { font-family: var(--font-h); font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 18px; }
-    .pf-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
-    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--muted); line-height: 1.5; }
-    .check-list li .ck { color: var(--green); font-weight: 800; font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    /* ── CAROUSEL ── */
+    .carousel-section { padding: 80px 0; background: #fff; }
+    .carousel-section .section-label { display: block; text-align: center; margin-bottom: 12px; }
+    .carousel-section .section-title { text-align: center; margin-bottom: 48px; }
+    .carousel-wrap { position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 64px rgba(0,0,0,0.12); }
+    .carousel-track { display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .carousel-slide { min-width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+    .carousel-img { height: 480px; overflow: hidden; }
+    .carousel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel-body { background: var(--cream); padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .carousel-tag { font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .carousel-body h2 { font-family: var(--font-h); font-size: clamp(26px, 3vw, 38px); font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 18px; }
+    .carousel-body p { font-size: 17px; color: var(--muted); line-height: 1.8; }
+    .carousel-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 28px; }
+    .carousel-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--brown); transition: all .2s; }
+    .carousel-btn:hover { background: var(--green); border-color: var(--green); color: #fff; }
+    .carousel-dots { display: flex; gap: 8px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: background .2s; }
+    .carousel-dot.active { background: var(--green); }
 
     /* ── QUOTE STRIP ── */
     .quote-strip { background: var(--brown); padding: 80px 0; text-align: center; }
@@ -206,6 +210,9 @@
       .collage { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
       .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .carousel-slide { grid-template-columns: 1fr; }
+      .carousel-img { height: 280px; }
+      .carousel-body { padding: 36px 28px; }
     }
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -215,6 +222,9 @@
       .footer-inner { grid-template-columns: 1fr; }
       .photo-strip { grid-template-columns: repeat(2, 1fr); }
       .collage { grid-template-columns: 1fr; }
+      .carousel-img { height: 220px; }
+      .carousel-body { padding: 28px 20px; }
+      .carousel-body h2 { font-size: 24px; }
     }
   </style>
 </head>
@@ -294,104 +304,53 @@
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section class="features" id="features">
-    <div class="features-header container">
-      <div class="section-label">✦ Everything you need</div>
-      <h2 class="section-title">Built for the <span class="grad">long story</span></h2>
-      <p class="section-desc">Every feature in Yarn exists to help you write more, worry less, and leave something lasting behind.</p>
+  <!-- CAROUSEL -->
+  <section class="carousel-section" id="how">
+    <div class="container">
+      <div class="section-label">✦ How it works</div>
+      <h2 class="section-title">Everything you need to <span class="grad">tell your story</span></h2>
     </div>
-    <div class="features-grid container">
-      <div class="feat-card fade-up">
-        <div class="feat-icon">✍️</div>
-        <h3>Focused Writing Editor</h3>
-        <p>A clean, distraction-free editor built for stories. Type naturally — Yarn auto-tags the people, places, and topics you mention.</p>
-      </div>
-      <div class="feat-card fade-up stagger-2">
-        <div class="feat-icon">🕰️</div>
-        <h3>Timeline & Life Epochs</h3>
-        <p>See your life chronologically. Threads group into life epochs — Childhood, Young Adult, Middle Age, Later Years.</p>
-      </div>
-      <div class="feat-card fade-up stagger-3">
-        <div class="feat-icon">💡</div>
-        <h3>Thousands of Memory Prompts</h3>
-        <p>One tap surfaces a curated question to spark a memory — from childhood and school days to love, career, and hard-won wisdom.</p>
-      </div>
-      <div class="feat-card fade-up">
-        <div class="feat-icon">👥</div>
-        <h3>Editor Collaboration</h3>
-        <p>Invite a family member as an editor using a secure code. They can read your threads, ask questions, and help fill the gaps.</p>
-      </div>
-      <div class="feat-card fade-up stagger-2">
-        <div class="feat-icon">📸</div>
-        <h3>Photos, Audio & Video</h3>
-        <p>Attach photos, voice recordings, and video clips directly into your threads. Each with captions and tags so nothing gets lost.</p>
-      </div>
-      <div class="feat-card fade-up stagger-3">
-        <div class="feat-icon">📖</div>
-        <h3>Export Your Memoir</h3>
-        <p>Export as HTML, EPUB, or PDF. Share by AirDrop, email, or save to Files. Stored in open Markdown — never locked in.</p>
-      </div>
-    </div>
-  </section>
+    <div class="container" style="max-width:1100px;">
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="carouselTrack">
 
-  <!-- PHOTO FEATURE: Timeline -->
-  <section class="photo-feature" id="how">
-    <div class="pf-inner container">
-      <div class="pf-image fade-up">
-        <img src="saili.png" alt="Father and son sailing" />
-      </div>
-      <div class="pf-text fade-up stagger-2">
-        <div class="section-label">🕰️ Timeline</div>
-        <h2>Your whole life,<br />in one view.</h2>
-        <p>Every thread you write, every milestone you record, every key date — all laid out in chronological order. Tap any event to open it, filter by person or place, and export selected moments.</p>
-        <ul class="check-list">
-          <li><span class="ck">✓</span> Pages, milestones, and key dates all unified</li>
-          <li><span class="ck">✓</span> 50+ content-aware icons automatically matched</li>
-          <li><span class="ck">✓</span> Colour-coded by life category</li>
-          <li><span class="ck">✓</span> Filter by person, place, or status</li>
-          <li><span class="ck">✓</span> Multi-select and export any slice of your story</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="saili.png" alt="Father and son sailing" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Timeline</div>
+              <h2>Your whole life, in one view.</h2>
+              <p>Every thread you write and every milestone you record is laid out in chronological order — grouped into life epochs, colour-coded, and filterable by the people and places that mattered most.</p>
+            </div>
+          </div>
 
-  <!-- PHOTO FEATURE: Prompts (reversed) -->
-  <section class="photo-feature alt">
-    <div class="pf-inner rev container">
-      <div class="pf-image fade-up">
-        <img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family memories" />
-      </div>
-      <div class="pf-text fade-up stagger-2">
-        <div class="section-label">💡 Memory Prompts</div>
-        <h2>Never face a<br />blank page again.</h2>
-        <p>Thousands of curated questions designed to spark imagination and unlock memories you didn't know you still had. Every day, a fresh prompt lands in your pocket.</p>
-        <ul class="check-list">
-          <li><span class="ck">✓</span> Thousands of questions across 10 life categories</li>
-          <li><span class="ck">✓</span> Daily push notifications (your schedule)</li>
-          <li><span class="ck">✓</span> Tap "Spark a different memory" for a new one</li>
-          <li><span class="ck">✓</span> Editors and family members can also send questions</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family memories" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Memory Prompts</div>
+              <h2>Never face a blank page again.</h2>
+              <p>Thousands of curated questions designed to unlock memories you didn't know you still had. A fresh prompt every day — covering childhood, love, career, travel, and everything in between.</p>
+            </div>
+          </div>
 
-  <!-- PHOTO FEATURE: Collaboration -->
-  <section class="photo-feature">
-    <div class="pf-inner container">
-      <div class="pf-image fade-up">
-        <img src="help.png" alt="Sharing memories together on a tablet" />
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="help.png" alt="Sharing memories together" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Collaboration</div>
+              <h2>You'll never write alone.</h2>
+              <p>Invite family or friends as editors using a secure code. They can read your threads, prompt new memories, and encourage the journey — while you stay in full control of every word they see.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="pf-text fade-up stagger-2">
-        <div class="section-label">👥 Collaboration</div>
-        <h2>You'll never write<br />alone.</h2>
-        <p>Invite a family member or close friend as an editor using a secure 8-character code. They can read your threads, ask questions, and encourage the journey — while you stay in full control.</p>
-        <ul class="check-list">
-          <li><span class="ck">✓</span> Invite editors with a secure 8-character code</li>
-          <li><span class="ck">✓</span> Editors can ask questions and offer encouragement</li>
-          <li><span class="ck">✓</span> Private threads stay completely hidden</li>
-          <li><span class="ck">✓</span> Revoke access any time, instantly</li>
-        </ul>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="carouselPrev">&#8592;</button>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-idx="0"></button>
+          <button class="carousel-dot" data-idx="1"></button>
+          <button class="carousel-dot" data-idx="2"></button>
+        </div>
+        <button class="carousel-btn" id="carouselNext">&#8594;</button>
       </div>
     </div>
   </section>
@@ -444,53 +403,89 @@
     </div>
   </section>
 
+  <!-- BUILT FOR THE LONG STORY -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">✦ Built for the long story</div>
+        <h2 class="section-title">Everything you need to <span class="grad">write a life well lived</span></h2>
+        <p class="section-desc">Yarn combines beautiful writing tools, rich media, family collaboration, and professional publishing in one thoughtful app.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card fade-up">
+          <h3>Timeline &amp; Epochs</h3>
+          <p>See your whole life laid out in chronological order, grouped into the chapters that shaped you — childhood, career, family, and beyond.</p>
+        </div>
+        <div class="feat-card fade-up stagger-2">
+          <h3>Daily Memory Prompts</h3>
+          <p>A fresh question every day — crafted to unlock memories across childhood, love, work, travel, and wisdom. Never face a blank page again.</p>
+        </div>
+        <div class="feat-card fade-up stagger-3">
+          <h3>Photos, Audio &amp; Video</h3>
+          <p>Attach photos, record voice memos, or embed videos directly into your threads. Your memories, exactly as you remember them.</p>
+        </div>
+        <div class="feat-card fade-up">
+          <h3>People &amp; Places</h3>
+          <p>Tag the people and places that matter. Build a family tree, map your travels, and see all the threads connected to someone you love.</p>
+        </div>
+        <div class="feat-card fade-up stagger-2">
+          <h3>Editor Collaboration</h3>
+          <p>Invite family or trusted friends as editors. They can read your story, encourage your writing, and prompt new memories with you.</p>
+        </div>
+        <div class="feat-card fade-up stagger-3">
+          <h3>Export &amp; Publish</h3>
+          <p>When you're ready, export as a print-ready PDF, EPUB ebook, or a portable Markdown archive your family can keep forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="pricing-header container">
       <div class="section-label">💰 Pricing</div>
       <h2 class="section-title">Start free. <span class="grad">Your story, your way.</span></h2>
-      <p class="section-desc" style="margin:0 auto;">Two months free to explore — then a simple one-time fee plus a small monthly subscription.</p>
+      <p class="section-desc" style="margin:0 auto;">Write freely for two months — then choose the plan that suits your story.</p>
     </div>
     <div class="pricing-grid container">
       <div class="price-card fade-up">
         <div class="price-name">Free Trial</div>
         <div><span class="price-num">$0</span></div>
-        <div class="price-note">First 2 months free</div>
+        <div class="price-note">Write freely for 2 months</div>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li><span class="ck">✓</span><span>Full access for 2 months</span></li>
-          <li><span class="ck">✓</span><span>Write &amp; edit threads</span></li>
-          <li><span class="ck">✓</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">✓</span><span>Write freely for 2 months</span></li>
           <li><span class="ck">✓</span><span>Timeline &amp; Dashboard</span></li>
           <li><span class="ck">✓</span><span>Photos, audio &amp; video</span></li>
-          <li><span class="ck">✓</span><span>Download &amp; export your story</span></li>
+          <li><span class="ck">✓</span><span>Download whenever you need</span></li>
+          <li><span style="color:var(--border)">✗</span><span style="color:var(--muted);opacity:.6">Memory prompts not included</span></li>
         </ul>
         <a href="#waitlist" class="price-btn ghost">Get started free</a>
       </div>
       <div class="price-card featured fade-up stagger-2">
-        <div class="price-badge">⭐ Standard plan</div>
-        <div class="price-name">Lifetime + Subscription</div>
-        <div><span class="price-num">$10</span><span class="price-unit"> once</span></div>
-        <div class="price-note">+ $5 / month to keep writing</div>
+        <div class="price-badge">⭐ Most popular</div>
+        <div class="price-name">Standard</div>
+        <div><span class="price-num">$20</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">Everything you need to tell your story</div>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li><span class="ck">✓</span><span>Lifetime access — view &amp; download always</span></li>
-          <li><span class="ck">✓</span><span>Up to 50,000 words</span></li>
-          <li><span class="ck">✓</span><span>200 images or audio files</span></li>
-          <li><span class="ck">✓</span><span>Editor Collaboration</span></li>
-          <li><span class="ck">✓</span><span>Full export — HTML, EPUB &amp; PDF</span></li>
+          <li><span class="ck">✓</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">✓</span><span>Friends &amp; family can prompt memories</span></li>
+          <li><span class="ck">✓</span><span>Editor collaboration</span></li>
+          <li><span class="ck">✓</span><span>Enhanced export — HTML, EPUB &amp; PDF</span></li>
+          <li><span class="ck">✓</span><span>Timeline, photos &amp; all core features</span></li>
         </ul>
         <a href="#waitlist" class="price-btn solid">Join waitlist</a>
       </div>
       <div class="price-card fade-up stagger-3">
-        <div class="price-name">+ Extended Storage</div>
-        <div><span class="price-num">+$5</span><span class="price-unit">/mo</span></div>
-        <div class="price-note">Added to your subscription</div>
+        <div class="price-name">Extended Storage</div>
+        <div><span class="price-num">$30</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">For the storyteller with more to say</div>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><span class="ck">✓</span><span>Everything in the Standard plan</span></li>
-          <li><span class="ck">✓</span><span>400 images or audio files</span></li>
-          <li><span class="ck">✓</span><span>Up to 100,000 words</span></li>
+          <li><span class="ck">✓</span><span>500 images or audio files</span></li>
+          <li><span class="ck">✓</span><span>Up to 150,000 words</span></li>
         </ul>
         <a href="#waitlist" class="price-btn ghost">Join waitlist</a>
       </div>
@@ -567,6 +562,42 @@
       { threshold: 0.1 }
     );
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── CAROUSEL ──
+    (function() {
+      const track = document.getElementById('carouselTrack');
+      const dots  = document.querySelectorAll('.carousel-dot');
+      const prev  = document.getElementById('carouselPrev');
+      const next  = document.getElementById('carouselNext');
+      if (!track) return;
+      let current = 0;
+      const total = track.children.length;
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+      dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+      // Auto-advance every 5 seconds
+      let timer = setInterval(() => goTo(current + 1), 5000);
+      track.closest('.carousel-section').addEventListener('mouseenter', () => clearInterval(timer));
+      track.closest('.carousel-section').addEventListener('mouseleave', () => {
+        timer = setInterval(() => goTo(current + 1), 5000);
+      });
+
+      // Touch swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+      });
+    })();
   </script>
 </body>
 </html>
