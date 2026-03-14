@@ -7,1299 +7,229 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Reset ──────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
-    /* ─── Tokens ─────────────────────────────────────────────────── */
     :root {
-      --terra:       #C88A0A;
-      --terra-glow:  #E8A820;
-      --terra-deep:  #9A6800;
-      --beige:       #C4956A;
-
-      --dark-bg:     #1E1008;
-      --dark-card:   #2A1A0A;
-      --dark-border: rgba(200, 138, 10, 0.2);
-      --dark-text:   rgba(255, 253, 245, 0.92);
-      --dark-muted:  rgba(255, 243, 210, 0.52);
-
-      --light-bg:    #FAF7F2;
-      --light-card:  #FFFFFF;
-      --light-border:#EDE5D8;
-      --light-text:  #2A1608;
-      --light-muted: #6B5240;
-
-      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --radius-sm: 12px;
-      --radius-md: 20px;
-      --radius-lg: 28px;
+      --green:    #D97535;
+      --green-lt: #E8924A;
+      --green-dk: #B85E20;
+      --coral:    #C9B5A4;
+      --amber:    #C88A3A;
+      --brown:    #3D2010;
+      --cream:    #F5EDE5;
+      --card:     #FDF8F4;
+      --border:   #E8D5C4;
+      --text:     #2A1608;
+      --muted:    #7A5C48;
+      --font-h:   'Lora', Georgia, serif;
+      --font-b:   'Nunito', system-ui, sans-serif;
     }
 
-    body {
-      font-family: var(--font);
-      background: var(--light-bg);
-      color: var(--light-text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
+    body { font-family: var(--font-b); background: var(--cream); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-    /* ─── Utility ────────────────────────────────────────────────── */
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #F5BC35 0%, #E8A820 50%, #C88A0A 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ─── Nav ────────────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      padding: 0 28px;
-      background: rgba(250, 247, 242, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--light-border);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-      max-width: 1140px;
-      margin: 0 auto;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245,237,229,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
-
-    .nav-logo-text {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--light-text);
-      letter-spacing: -0.5px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--light-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--light-text); }
-
-    @media (max-width: 720px) { .nav-links { display: none; } }
-
-    .btn-nav {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--terra);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 10px 22px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-nav:hover {
-      background: var(--terra-glow);
-      box-shadow: 0 0 28px rgba(200, 138, 10, 0.45);
-      transform: translateY(-1px);
-    }
-
-    /* ─── Hero ───────────────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 28px 100px;
-      overflow: hidden;
-    }
-
-    /* Glow orbs */
-    .hero-glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-    }
-
-    .hero-glow-1 {
-      width: 700px; height: 700px;
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(200,138,10,0.12) 0%, transparent 70%);
-    }
-
-    .hero-glow-2 {
-      width: 400px; height: 400px;
-      bottom: 0; left: 10%;
-      background: radial-gradient(circle, rgba(196,149,106,0.12) 0%, transparent 70%);
-    }
-
-    .hero-glow-3 {
-      width: 300px; height: 300px;
-      top: 30%; right: 8%;
-      background: radial-gradient(circle, rgba(196,149,106,0.08) 0%, transparent 70%);
-    }
-
-    /* Subtle grid */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(200,138,10,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200,138,10,0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 860px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(200, 138, 10, 0.10);
-      border: 1px solid rgba(200, 138, 10, 0.28);
-      color: var(--terra);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 7px 16px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-      letter-spacing: 0.3px;
-    }
-
-    .hero-badge .dot {
-      width: 7px; height: 7px;
-      background: var(--terra-glow);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--terra-glow);
-      animation: pulse 2s ease infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.85); }
-    }
-
-    .hero h1 {
-      font-size: clamp(44px, 7vw, 82px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2.5px;
-      color: var(--light-text);
-      margin-bottom: 8px;
-    }
-
-    .hero-sub {
-      font-size: clamp(18px, 2.5vw, 24px);
-      font-weight: 400;
-      color: var(--light-muted);
-      margin-bottom: 14px;
-      font-style: italic;
-      letter-spacing: 0.2px;
-    }
-
-    .hero-desc {
-      font-size: clamp(16px, 2vw, 19px);
-      color: var(--light-muted);
-      max-width: 600px;
-      margin: 0 auto 48px;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-
-    /* Hero form */
-    .hero-form {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .hero-form input[type="email"] {
-      flex: 1 1 260px;
-      height: 54px;
-      padding: 0 22px;
-      background: var(--light-card);
-      border: 1.5px solid var(--light-border);
-      border-radius: 100px;
-      color: var(--light-text);
-      font-family: var(--font);
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px rgba(42, 22, 8, 0.06);
-    }
-    .hero-form input::placeholder { color: var(--light-muted); opacity: 0.6; }
-    .hero-form input:focus {
-      border-color: var(--terra);
-      box-shadow: 0 0 0 3px rgba(200,138,10,0.15);
-    }
-
-    .btn-hero {
-      height: 54px;
-      padding: 0 30px;
-      background: linear-gradient(135deg, var(--terra-glow), var(--terra));
-      color: #fff;
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.15s;
-      white-space: nowrap;
-    }
-    .btn-hero:hover {
-      box-shadow: 0 0 40px rgba(200,138,10,0.45);
-      transform: translateY(-2px);
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: var(--light-muted);
-      opacity: 0.7;
-    }
-
-    .confirm-msg {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #16A34A;
-    }
-    .confirm-msg.visible { display: flex; }
-
-    /* App mockup below hero */
-    .hero-mockup {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 64px auto 0;
-    }
-
-    .mockup-frame {
-      background: var(--dark-card);
-      border: 1px solid var(--dark-border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow:
-        0 0 0 1px rgba(200,138,10,0.12),
-        0 40px 100px rgba(42,22,8,0.22),
-        0 0 60px rgba(200,138,10,0.08);
-    }
-
-    .mockup-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .mockup-dot {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-    }
-    .mockup-dot:nth-child(1) { background: #FF5F57; }
-    .mockup-dot:nth-child(2) { background: #FFBD2E; }
-    .mockup-dot:nth-child(3) { background: #28C840; }
-
-    .mockup-title {
-      margin-left: 12px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
-      font-weight: 500;
-    }
-
-    .mockup-app {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 16px;
-      min-height: 340px;
-    }
-
-    @media (max-width: 640px) { .mockup-app { grid-template-columns: 1fr; } }
-
-    .mockup-sidebar {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-    }
-
-    .sidebar-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 10px;
-    }
-
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 2px;
-    }
-
-    .sidebar-item.active {
-      background: rgba(226,98,42,0.15);
-      color: var(--terra-glow);
-    }
-
-    .sidebar-item .icon { font-size: 14px; }
-
-    .epoch-chip {
-      display: inline-block;
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 100px;
-      font-weight: 600;
-      margin-top: 12px;
-      margin-bottom: 4px;
-    }
-    .epoch-chip.child  { background: rgba(251,191,36,0.15); color: #FBBF24; }
-    .epoch-chip.young  { background: rgba(99,102,241,0.15); color: #818CF8; }
-
-    .mockup-main { display: flex; flex-direction: column; gap: 12px; }
-
-    .thread-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px;
-      padding: 16px 20px;
-    }
-
-    .thread-card.featured {
-      border-color: rgba(226,98,42,0.3);
-      background: rgba(226,98,42,0.06);
-    }
-
-    .thread-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .thread-date { font-size: 11px; color: var(--terra-glow); font-weight: 600; }
-
-    .thread-status {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 100px;
-      font-weight: 600;
-    }
-    .thread-status.final   { background: rgba(74,222,128,0.12); color: #4ADE80; }
-    .thread-status.draft   { background: rgba(251,191,36,0.12); color: #FBBF24; }
-    .thread-status.private { background: rgba(148,163,184,0.12); color: #94A3B8; }
-
-    .thread-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-
-    .thread-preview {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .thread-tags {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .tag-pill {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 100px;
-      font-weight: 500;
-    }
-    .tag-pill.person { background: rgba(99,102,241,0.15); color: #818CF8; }
-    .tag-pill.place  { background: rgba(74,222,128,0.12); color: #4ADE80; }
-    .tag-pill.topic  { background: rgba(226,98,42,0.15); color: var(--terra-glow); }
-
-    /* ─── Logos / Social Proof ───────────────────────────────────── */
-    .proof {
-      padding: 28px 0;
-      border-top: 1px solid var(--light-border);
-      border-bottom: 1px solid var(--light-border);
-      background: rgba(200, 138, 10, 0.04);
-    }
-
-    .proof-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .proof-inner .label {
-      font-size: 13px;
-      color: var(--light-muted);
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-
-    .proof-stat {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      background: var(--light-card);
-      border: 1px solid var(--light-border);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--light-text);
-      box-shadow: 0 2px 6px rgba(42,22,8,0.05);
-    }
-
-    .proof-stat .emoji { font-size: 15px; }
-
-    /* ─── Features ───────────────────────────────────────────────── */
-    .features {
-      padding: 120px 28px;
-      background: #FFFFFF;
-      color: var(--light-text);
-      border-top: 1px solid var(--light-border);
-    }
-
-    .features-header {
-      text-align: center;
-      margin-bottom: 72px;
-    }
-
-    .section-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--terra);
-      background: rgba(226,98,42,0.08);
-      padding: 6px 16px;
-      border-radius: 100px;
-      margin-bottom: 20px;
-    }
-
-    .section-title {
-      font-size: clamp(34px, 5vw, 52px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.1;
-      color: var(--light-text);
-      margin-bottom: 18px;
-    }
-
-    .section-title .grad {
-      background: linear-gradient(135deg, var(--terra-glow), var(--terra-deep));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-desc {
-      font-size: 18px;
-      color: var(--light-muted);
-      max-width: 560px;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1140px;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
-
-    .feat-card {
-      background: var(--light-card);
-      border: 1.5px solid var(--light-border);
-      border-radius: var(--radius-md);
-      padding: 36px 32px;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-
-    .feat-card:hover {
-      border-color: rgba(200,138,10,0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(200,138,10,0.10);
-    }
-
-    .feat-icon-wrap {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(200,138,10,0.12), rgba(196,149,106,0.20));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 22px;
-    }
-
-    .feat-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--light-text);
-      letter-spacing: -0.3px;
-      margin-bottom: 10px;
-    }
-
-    .feat-card p {
-      font-size: 14px;
-      color: var(--light-muted);
-      line-height: 1.7;
-    }
-
-    /* ─── Big Feature Rows ───────────────────────────────────────── */
-    .big-feature {
-      padding: 120px 28px;
-      background: var(--dark-bg);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .big-feature + .big-feature { border-top: 1px solid var(--dark-border); }
-
-    .big-feature-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      max-width: 1140px;
-      margin: 0 auto;
-    }
-
-    .big-feature-inner.reverse { direction: rtl; }
-    .big-feature-inner.reverse > * { direction: ltr; }
-
-    @media (max-width: 840px) {
-      .big-feature-inner { grid-template-columns: 1fr; gap: 48px; }
-      .big-feature-inner.reverse { direction: ltr; }
-    }
-
-    .big-feature-text .section-pill { margin-bottom: 16px; }
-
-    .big-feature-title {
-      font-size: clamp(30px, 4vw, 44px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.1;
-      color: #fff;
-      margin-bottom: 18px;
-    }
-
-    .big-feature-desc {
-      font-size: 16px;
-      color: var(--dark-muted);
-      line-height: 1.8;
-      margin-bottom: 28px;
-    }
-
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.65);
-    }
-
-    .feature-list .check {
-      flex-shrink: 0;
-      width: 20px; height: 20px;
-      background: rgba(226,98,42,0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: var(--terra-glow);
-      margin-top: 2px;
-    }
-
-    /* Visual panels */
-    .vis-panel {
-      background: var(--dark-card);
-      border: 1px solid var(--dark-border);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-    }
-
-    .vis-panel::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(200,138,10,0.22) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Timeline visual */
-    .timeline-vis { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 32px; }
-
-    .timeline-vis::before {
-      content: '';
-      position: absolute;
-      left: 10px; top: 10px; bottom: 10px;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--terra), transparent);
-    }
-
-    .tl-item { position: relative; padding: 12px 0 12px 16px; }
-
-    .tl-dot {
-      position: absolute;
-      left: -26px;
-      top: 18px;
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      border: 2px solid var(--dark-bg);
-    }
-
-    .tl-dot.rose   { background: #FB7185; box-shadow: 0 0 8px rgba(251,113,133,0.5); }
-    .tl-dot.indigo { background: #818CF8; box-shadow: 0 0 8px rgba(129,140,248,0.5); }
-    .tl-dot.amber  { background: #FBBF24; box-shadow: 0 0 8px rgba(251,191,36,0.5); }
-    .tl-dot.terra  { background: var(--terra-glow); box-shadow: 0 0 8px rgba(226,98,42,0.5); }
-    .tl-dot.emerald{ background: #34D399; box-shadow: 0 0 8px rgba(52,211,153,0.5); }
-
-    .tl-year { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.25); margin-bottom: 2px; }
-    .tl-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); }
-    .tl-meta { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
-
-    /* Prompts visual */
-    .prompt-vis { display: flex; flex-direction: column; gap: 12px; }
-
-    .prompt-item {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-
-    .prompt-item.active {
-      border-color: rgba(226,98,42,0.4);
-      background: rgba(226,98,42,0.07);
-    }
-
-    .prompt-cat-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--terra-glow);
-      margin-bottom: 5px;
-    }
-
-    .prompt-q {
-      font-size: 14px;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    /* Editor collab visual */
-    .collab-vis { display: flex; flex-direction: column; gap: 12px; }
-
-    .collab-msg {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .collab-msg.editor { flex-direction: row-reverse; }
-
-    .collab-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .collab-avatar.author { background: rgba(226,98,42,0.25); color: var(--terra-glow); }
-    .collab-avatar.editor { background: rgba(129,140,248,0.25); color: #818CF8; }
-
-    .collab-bubble {
-      max-width: 220px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .collab-msg:not(.editor) .collab-bubble {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.75);
-      border-bottom-left-radius: 4px;
-    }
-
-    .collab-msg.editor .collab-bubble {
-      background: rgba(129,140,248,0.12);
-      color: rgba(255,255,255,0.7);
-      border-bottom-right-radius: 4px;
-    }
-
-    .collab-name { font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 3px; font-weight: 600; letter-spacing: 0.5px; }
-
-    /* ─── Prompts Section ────────────────────────────────────────── */
-    .prompts-cta {
-      padding: 120px 28px;
-      background: var(--light-bg);
-      text-align: center;
-    }
-
-    .prompts-cta .section-title { color: var(--light-text); }
-    .prompts-cta .section-desc { margin: 0 auto 48px; }
-
-    .prompt-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      max-width: 780px;
-      margin: 0 auto 60px;
-    }
-
-    .prompt-chip {
-      font-size: 13px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 100px;
-      border: 1.5px solid var(--light-border);
-      color: var(--light-muted);
-      background: var(--light-card);
-      transition: border-color 0.2s, color 0.2s;
-      cursor: default;
-    }
-
-    .prompt-chip:hover {
-      border-color: var(--terra);
-      color: var(--terra);
-    }
-
-    .big-prompt-card {
-      background: var(--dark-bg);
-      border: 1px solid var(--dark-border);
-      border-radius: var(--radius-lg);
-      padding: 48px;
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .big-prompt-card::before {
-      content: '';
-      position: absolute;
-      top: -80px; left: 50%;
-      transform: translateX(-50%);
-      width: 500px; height: 300px;
-      background: radial-gradient(ellipse, rgba(200,138,10,0.25) 0%, transparent 70%);
-    }
-
-    .big-prompt-card .quot {
-      font-size: 60px;
-      color: var(--terra);
-      line-height: 0.5;
-      font-family: Georgia, serif;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .big-prompt-card .prompt-text {
-      font-size: clamp(20px, 3vw, 26px);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.4;
-      letter-spacing: -0.3px;
-      position: relative;
-      z-index: 1;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-
-    .big-prompt-card .prompt-category {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--terra-glow);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ─── Pricing ────────────────────────────────────────────────── */
-    .pricing {
-      padding: 120px 28px;
-      background: var(--dark-bg);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing::before {
-      content: '';
-      position: absolute;
-      top: -100px; left: 50%;
-      transform: translateX(-50%);
-      width: 800px; height: 400px;
-      background: radial-gradient(ellipse, rgba(200,138,10,0.14) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .pricing-header {
-      text-align: center;
-      margin-bottom: 64px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .pricing-header .section-title { color: #fff; }
-    .pricing-header .section-desc { margin: 0 auto; color: var(--dark-muted); }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 960px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (max-width: 860px) { .pricing-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 520px) { .pricing-grid { grid-template-columns: 1fr; } }
-
-    .price-card {
-      background: var(--dark-card);
-      border: 1.5px solid var(--dark-border);
-      border-radius: var(--radius-md);
-      padding: 32px 28px;
-      position: relative;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .price-card:hover { transform: translateY(-4px); }
-
-    .price-card.featured {
-      border-color: var(--terra-glow);
-      background: linear-gradient(180deg, rgba(200,138,10,0.10) 0%, var(--dark-card) 100%);
-    }
-
-    .price-badge {
-      position: absolute;
-      top: -14px; left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--terra-glow), var(--terra));
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 5px 16px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-
-    .price-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .price-amount {
-      margin-bottom: 24px;
-    }
-
-    .price-num {
-      font-size: 48px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -2px;
-      line-height: 1;
-    }
-
-    .price-unit {
-      font-size: 16px;
-      color: rgba(255,255,255,0.4);
-      font-weight: 400;
-    }
-
-    .price-note {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      margin-top: 4px;
-    }
-
-    .price-divider { height: 1px; background: var(--dark-border); margin: 24px 0; }
-
-    .price-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .price-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .price-features .ck { color: var(--terra-glow); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-    .price-features .nx { color: rgba(255,255,255,0.2); font-size: 14px; flex-shrink: 0; }
-    .price-features .nx ~ span { color: rgba(255,255,255,0.3); }
-
-    .price-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 13px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-      font-family: var(--font);
-    }
-
-    .price-btn.ghost {
-      background: transparent;
-      border: 1.5px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.6);
-    }
-    .price-btn.ghost:hover { border-color: var(--terra); color: var(--terra-glow); }
-
-    .price-btn.solid {
-      background: linear-gradient(135deg, var(--terra-glow), var(--terra));
-      color: #fff;
-      box-shadow: 0 4px 24px rgba(200,138,10,0.35);
-    }
-    .price-btn.solid:hover { box-shadow: 0 8px 40px rgba(200,138,10,0.50); }
-
-    /* ─── Final CTA ──────────────────────────────────────────────── */
-    .final-cta {
-      padding: 140px 28px;
-      background: var(--light-bg);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .final-cta .section-title { color: var(--light-text); margin-bottom: 16px; }
-    .final-cta .section-desc { margin: 0 auto 48px; }
-
-    .final-cta-form {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .final-cta-form input[type="email"] {
-      flex: 1 1 260px;
-      height: 54px;
-      padding: 0 22px;
-      border: 1.5px solid var(--light-border);
-      border-radius: 100px;
-      background: var(--light-card);
-      font-family: var(--font);
-      font-size: 15px;
-      color: var(--light-text);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .final-cta-form input:focus {
-      border-color: var(--terra);
-      box-shadow: 0 0 0 3px rgba(226,98,42,0.12);
-    }
-
-    .btn-light {
-      height: 54px;
-      padding: 0 30px;
-      background: linear-gradient(135deg, var(--terra-glow), var(--terra));
-      color: #fff;
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.15s;
-      white-space: nowrap;
-    }
-    .btn-light:hover { box-shadow: 0 8px 32px rgba(226,98,42,0.35); transform: translateY(-2px); }
-
-    .cta-note { margin-top: 16px; font-size: 13px; color: var(--light-muted); }
-
-    .confirm-light {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #16A34A;
-    }
-    .confirm-light.visible { display: flex; }
-
-    /* ─── Footer ─────────────────────────────────────────────────── */
-    footer {
-      background: var(--dark-bg);
-      border-top: 1px solid var(--dark-border);
-      padding: 56px 28px 40px;
-    }
-
-    .footer-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 48px;
-    }
-
-    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; } }
-
-    .footer-brand .nav-logo { margin-bottom: 12px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.3); font-style: italic; margin-top: 4px; }
-
-    .footer-links-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    @media (max-width: 580px) { .footer-links-grid { grid-template-columns: repeat(2,1fr); } }
-
-    .footer-col h4 {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 16px;
-    }
-
+    .nav-logo-text { font-family: var(--font-h); font-size: 22px; font-weight: 700; color: var(--brown); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 15px; transition: color .2s; }
+    .nav-links a:hover { color: var(--green); }
+    .btn-nav { background: var(--green); color: #fff; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 14px; transition: background .2s; }
+    .btn-nav:hover { background: var(--green-dk); }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('Gemini_Generated_Image_yury28yury28yury.png'); background-size: cover; background-position: center top; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(42,30,20,0.55) 0%, rgba(42,30,20,0.35) 50%, rgba(42,30,20,0.7) 100%); }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; padding: 140px 28px 80px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 7px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 28px; }
+    .hero-badge .dot { width: 7px; height: 7px; background: #F0C070; border-radius: 50%; }
+    .hero h1 { font-family: var(--font-h); font-size: clamp(42px, 7vw, 76px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+    .hero h1 em { font-style: italic; color: #FDDBA0; }
+    .hero-desc { font-size: 18px; color: rgba(255,255,255,0.88); max-width: 540px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto 14px; }
+    .hero-form input { flex: 1; padding: 14px 20px; border-radius: 30px; border: none; font-size: 15px; font-family: var(--font-b); outline: none; background: rgba(255,255,255,0.95); color: var(--text); }
+    .hero-form input::placeholder { color: #999; }
+    .btn-hero { background: var(--green); color: #fff; padding: 14px 26px; border-radius: 30px; border: none; font-size: 15px; font-weight: 700; font-family: var(--font-b); cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .btn-hero:hover { background: var(--green-dk); }
+    .hero-note { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .confirm-msg { display: none; margin-top: 16px; color: #6DD98A; font-weight: 700; font-size: 15px; }
+    .confirm-msg.visible { display: block; }
+
+    /* Photo strip below hero */
+    .photo-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .photo-strip-item { height: 220px; overflow: hidden; }
+    .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .photo-strip-item:hover img { transform: scale(1.04); }
+
+    /* ── PROOF BAR ── */
+    .proof { background: var(--brown); padding: 18px 28px; }
+    .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; }
+    .proof-inner .label { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .proof-stat { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; font-size: 14px; }
+    .proof-stat .emoji { font-size: 18px; }
+
+    /* ── SECTION COMMONS ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    .section-label { display: inline-block; background: #F5E2D0; color: var(--green-dk); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .section-title { font-family: var(--font-h); font-size: clamp(30px, 4vw, 46px); font-weight: 700; color: var(--brown); line-height: 1.15; margin-bottom: 16px; }
+    .section-desc { font-size: 17px; color: var(--muted); max-width: 580px; line-height: 1.7; }
+    .grad { color: var(--green); }
+
+    /* ── INTRO SPLIT ── */
+    .intro-split { padding: 100px 0; }
+    .intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .intro-photo { position: relative; }
+    .intro-photo img { width: 100%; border-radius: 24px; display: block; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .intro-photo-badge { position: absolute; bottom: -20px; left: 24px; background: #fff; border-radius: 16px; padding: 14px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 12px; }
+    .intro-photo-badge .stat { font-family: var(--font-h); font-size: 28px; font-weight: 700; color: var(--green-dk); line-height: 1; }
+    .intro-photo-badge .stat-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .intro-text { padding-top: 20px; }
+    .intro-text p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+    .btn-green { display: inline-block; background: var(--green); color: #fff; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; transition: background .2s; }
+    .btn-green:hover { background: var(--green-dk); }
+
+    /* ── FEATURES ── */
+    .features { padding: 100px 0; background: #fff; }
+    .features-header { text-align: center; margin-bottom: 56px; }
+    .features-header .section-desc { margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .feat-card { background: var(--cream); border-radius: 20px; padding: 36px 28px; border: 1px solid var(--border); transition: transform .25s, box-shadow .25s; }
+    .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .feat-card h3 { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 10px; }
+    .feat-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    /* ── CAROUSEL ── */
+    .carousel-section { padding: 80px 0; background: #fff; }
+    .carousel-section .section-label { display: block; text-align: center; margin-bottom: 12px; }
+    .carousel-section .section-title { text-align: center; margin-bottom: 48px; }
+    .carousel-wrap { position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 24px 64px rgba(0,0,0,0.12); }
+    .carousel-track { display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .carousel-slide { min-width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+    .carousel-img { height: 480px; overflow: hidden; }
+    .carousel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel-body { background: var(--cream); padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .carousel-tag { font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .carousel-body h2 { font-family: var(--font-h); font-size: clamp(26px, 3vw, 38px); font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 18px; }
+    .carousel-body p { font-size: 17px; color: var(--muted); line-height: 1.8; }
+    .carousel-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 28px; }
+    .carousel-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--brown); transition: all .2s; }
+    .carousel-btn:hover { background: var(--green); border-color: var(--green); color: #fff; }
+    .carousel-dots { display: flex; gap: 8px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: background .2s; }
+    .carousel-dot.active { background: var(--green); }
+
+    /* ── QUOTE STRIP ── */
+    .quote-strip { background: var(--brown); padding: 80px 0; text-align: center; }
+    .big-quote { font-family: var(--font-h); font-size: clamp(26px, 4vw, 48px); font-style: italic; color: rgba(255,255,255,0.95); max-width: 760px; margin: 0 auto 24px; line-height: 1.35; }
+    .big-quote-attr { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; }
+
+    /* ── PROMPT CATEGORIES ── */
+    .prompts-section { padding: 100px 0; text-align: center; }
+    .prompt-chips { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 36px 0; }
+    .prompt-chip { background: #fff; border: 1.5px solid var(--border); color: var(--brown); padding: 10px 20px; border-radius: 30px; font-size: 14px; font-weight: 600; transition: all .2s; cursor: default; }
+    .prompt-chip:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .big-prompt { background: var(--brown); border-radius: 24px; padding: 48px 40px; max-width: 680px; margin: 0 auto; text-align: center; }
+    .big-prompt .qq { font-size: 72px; line-height: .6; color: rgba(255,255,255,0.25); font-family: var(--font-h); margin-bottom: 20px; display: block; }
+    .big-prompt-text { font-family: var(--font-h); font-size: 24px; font-style: italic; color: #fff; line-height: 1.5; margin-bottom: 16px; }
+    .big-prompt-cat { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ── COLLAGE ── */
+    .collage-section { padding: 80px 0 0; }
+    .collage { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: 6px; border-radius: 24px; overflow: hidden; }
+    .collage-item { overflow: hidden; }
+    .collage-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .collage-item:hover img { transform: scale(1.04); }
+
+    /* ── PRICING ── */
+    .pricing { padding: 100px 0; background: #fff; }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .price-card { background: var(--cream); border-radius: 24px; padding: 36px 28px; border: 1.5px solid var(--border); position: relative; }
+    .price-card.featured { background: var(--brown); border-color: var(--brown); }
+    .price-badge { background: var(--amber); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.05em; padding: 5px 14px; border-radius: 20px; display: inline-block; margin-bottom: 16px; }
+    .price-name { font-family: var(--font-h); font-size: 20px; font-weight: 600; color: var(--brown); margin-bottom: 16px; }
+    .price-card.featured .price-name { color: #fff; }
+    .price-num { font-family: var(--font-h); font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
+    .price-card.featured .price-num { color: #FDDBA0; }
+    .price-unit { font-size: 18px; color: var(--muted); }
+    .price-card.featured .price-unit { color: rgba(255,255,255,0.5); }
+    .price-note { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .price-card.featured .price-note { color: rgba(255,255,255,0.5); }
+    .price-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .price-card.featured .price-divider { background: rgba(255,255,255,0.15); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+    .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
+    .price-card.featured .price-features li { color: rgba(255,255,255,0.75); }
+    .price-features li .ck { color: var(--green); font-weight: 800; flex-shrink: 0; }
+    .price-card.featured .price-features li .ck { color: #FDDBA0; }
+    .price-btn { display: block; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all .2s; }
+    .price-btn.solid { background: #fff; color: var(--green-dk); }
+    .price-btn.solid:hover { background: #E8F2EB; }
+    .price-btn.ghost { background: transparent; color: var(--green); border: 2px solid var(--green); }
+    .price-btn.ghost:hover { background: var(--green); color: #fff; }
+
+    /* ── FINAL CTA ── */
+    .final-cta { padding: 120px 0; text-align: center; background: var(--cream); }
+    .final-cta-form { display: flex; gap: 10px; max-width: 460px; margin: 36px auto 14px; }
+    .final-cta-form input { flex: 1; padding: 15px 22px; border-radius: 30px; border: 1.5px solid var(--border); font-size: 15px; font-family: var(--font-b); outline: none; background: #fff; color: var(--text); }
+    .final-cta-form input:focus { border-color: var(--green); }
+    .btn-dark { background: var(--green-dk); color: #fff; padding: 15px 28px; border-radius: 30px; border: none; font-size: 15px; font-weight: 700; font-family: var(--font-b); cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .btn-dark:hover { background: var(--green); }
+    .cta-note { font-size: 13px; color: var(--muted); }
+    .confirm-light { display: none; margin-top: 16px; color: var(--green-dk); font-weight: 700; }
+    .confirm-light.visible { display: block; }
+
+    /* ── FOOTER ── */
+    footer { background: #2A1608; padding: 60px 0 32px; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .footer-brand .nav-logo-text { color: #fff; }
+    .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 12px; line-height: 1.6; }
+    .footer-col h4 { font-family: var(--font-h); font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 16px; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.9); }
+    .footer-bottom { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.3); }
 
-    .footer-col a {
-      font-size: 14px;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.in { opacity: 1; transform: none; }
+    .stagger-2 { transition-delay: .12s; }
+    .stagger-3 { transition-delay: .24s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .intro-inner, .pf-inner, .pf-inner.rev { grid-template-columns: 1fr; gap: 40px; direction: ltr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+      .collage { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .carousel-slide { grid-template-columns: 1fr; }
+      .carousel-img { height: 280px; }
+      .carousel-body { padding: 36px 28px; }
     }
-    .footer-col a:hover { color: rgba(255,255,255,0.85); }
-
-    .footer-bottom {
-      max-width: 1140px;
-      margin: 40px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid var(--dark-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-form { flex-direction: column; }
+      .final-cta-form { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .collage { grid-template-columns: 1fr; }
+      .carousel-img { height: 220px; }
+      .carousel-body { padding: 28px 20px; }
+      .carousel-body h2 { font-size: 24px; }
     }
-
-    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.2); }
-
-    /* ─── Scroll Animations ──────────────────────────────────────── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.in { opacity: 1; transform: translateY(0); }
-
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
-    .stagger-6 { transition-delay: 0.6s; }
-
-    /* ─── Tablet (≤768px) ────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .container { padding: 0 20px; }
-      .hero { padding: 110px 20px 80px; }
-      .features { padding: 80px 20px; }
-      .big-feature { padding: 80px 20px; }
-      .big-feature-inner { gap: 40px; }
-      .prompts-cta { padding: 80px 20px; }
-      .pricing { padding: 80px 20px; }
-      .final-cta { padding: 100px 20px; }
-      footer { padding: 48px 20px 32px; }
-
-      /* Hero mockup — constrain and clip so it doesn't overflow right */
-      .hero-mockup { max-width: 100%; overflow: hidden; }
-      .mockup-frame { overflow: hidden; }
-      .mockup-app { grid-template-columns: 1fr; }
-      .mockup-sidebar { display: none; }
-    }
-
-    /* ─── Mobile (≤480px) ────────────────────────────────────────── */
-    @media (max-width: 480px) {
-      /* Nav */
-      .nav-inner { height: 56px; }
-      .btn-nav { font-size: 13px; padding: 8px 14px; }
-
-      /* Hero */
-      .hero { padding: 92px 20px 56px; min-height: auto; }
-      .hero-content { max-width: 100%; }
-      .hero h1 { font-size: 38px; letter-spacing: -1px; }
-      .hero-sub { font-size: 17px; }
-      .hero-desc { font-size: 15px; margin-bottom: 36px; }
-      .hero-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 22px; }
-      .hero-form { flex-direction: column; max-width: 100%; gap: 10px; }
-      .hero-form input[type="email"] { flex: 1 1 100%; width: 100%; min-width: 0; }
-      .btn-hero { width: 100%; justify-content: center; }
-      .hero-note { font-size: 12px; }
-
-      /* Hero mockup: full-bleed, hide sidebar */
-      .hero-mockup { margin: 36px -20px 0; max-width: calc(100% + 40px); overflow: hidden; }
-      .mockup-frame { border-radius: 0; border-left: none; border-right: none; padding: 14px; overflow: hidden; }
-      .mockup-sidebar { display: none; }
-      .mockup-app { grid-template-columns: 1fr; }
-      .mockup-bar { margin-bottom: 14px; }
-
-      /* Social proof */
-      .proof-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .proof-stat { width: 100%; }
-
-      /* Features */
-      .features { padding: 64px 20px; }
-      .features-header { margin-bottom: 36px; }
-      .section-title { font-size: 32px; letter-spacing: -0.8px; }
-      .section-desc { font-size: 15px; }
-      .feat-card { padding: 28px 24px; }
-
-      /* Big feature sections */
-      .big-feature { padding: 64px 20px; }
-      .big-feature-inner { gap: 32px; }
-      .big-feature-title { font-size: 28px; letter-spacing: -0.5px; }
-      .big-feature-desc { font-size: 15px; }
-      .vis-panel { padding: 20px; }
-
-      /* Prompts section */
-      .prompts-cta { padding: 64px 20px; }
-      .big-prompt-card { padding: 28px 20px; }
-      .big-prompt-card .quot { font-size: 44px; }
-      .big-prompt-card .prompt-text { font-size: 18px; }
-
-      /* Pricing */
-      .pricing { padding: 64px 20px; }
-      .pricing-header { margin-bottom: 36px; }
-      .pricing-header .section-title { color: #fff; }
-      .price-card { padding: 28px 20px; }
-      .price-num { font-size: 40px; }
-
-      /* Final CTA */
-      .final-cta { padding: 72px 20px; }
-      .final-cta-form { flex-direction: column; max-width: 100%; gap: 10px; }
-      .final-cta-form input[type="email"] { flex: 1 1 100%; width: 100%; min-width: 0; }
-      .btn-light { width: 100%; }
-
-      /* Footer */
-      footer { padding: 44px 20px 28px; }
-      .footer-inner { gap: 32px; }
-      .footer-links-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- ── Nav ───────────────────────────────────────────────────── -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="nav-logo">
@@ -1307,413 +237,189 @@
         <span class="nav-logo-text">Yarn</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
         <li><a href="#how">How it works</a></li>
         <li><a href="#pricing">Pricing</a></li>
       </ul>
-      <a href="#waitlist" class="btn-nav">Join the waitlist</a>
+      <a href="#waitlist" class="btn-nav">Get notified</a>
     </div>
   </nav>
 
-  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-glow hero-glow-1"></div>
-    <div class="hero-glow hero-glow-2"></div>
-    <div class="hero-glow hero-glow-3"></div>
-
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-badge">
-        <div class="dot"></div>
-        Now accepting early access sign-ups
-      </div>
-
-      <h1>Your life story,<br /><span class="gradient-text">woven from life, spun by you.</span></h1>
-
-      <p class="hero-desc">
-        Yarn is the personal memoir platform that helps you capture your memories — one thread at a time — and weave them into a story worth passing on.
-      </p>
-
+      <div class="hero-badge"><div class="dot"></div> Launching mid 2026</div>
+      <h1>Your life story,<br /><em>woven from life, spun by you.</em></h1>
+      <p class="hero-desc">Life is made up of threads, moments, people, and places. Woven together, these threads form a yarn, and that yarn is your life story.</p>
       <form class="hero-form" id="hero-form" onsubmit="handleSignup(event,'hero-confirm','hero-form')">
-        <input type="email" placeholder="Enter your email address" required />
-        <button type="submit" class="btn-hero">Get early access →</button>
+        <input type="email" placeholder="Enter your email to be notified" required />
+        <button type="submit" class="btn-hero">Notify me →</button>
       </form>
-      <p class="hero-note">2 months free · No credit card required · No spam, ever</p>
+      <p class="hero-note">Download the app in mid 2026 · No spam, ever</p>
       <div class="confirm-msg" id="hero-confirm">✓ You're on the list — we'll be in touch!</div>
     </div>
+  </section>
 
-    <!-- App Mockup -->
-    <div class="hero-mockup">
-      <div class="mockup-frame">
-        <div class="mockup-bar">
-          <div class="mockup-dot"></div>
-          <div class="mockup-dot"></div>
-          <div class="mockup-dot"></div>
-          <span class="mockup-title">Yarn — Your Threads</span>
+
+
+  <!-- INTRO SPLIT -->
+  <section class="intro-split">
+    <div class="container">
+      <div class="intro-inner">
+        <div class="intro-photo fade-up">
+          <img src="mylife.png" alt="Grandfather sharing his memoir with granddaughter" />
+          <div class="intro-photo-badge">
+            <div>
+              <div class="stat">PDF · EPUB · Print</div>
+              <div class="stat-label">export formats</div>
+            </div>
+          </div>
         </div>
-        <div class="mockup-app">
-          <div class="mockup-sidebar">
-            <div class="sidebar-label">Navigation</div>
-            <div class="sidebar-item active"><span class="icon">📝</span> My Threads</div>
-            <div class="sidebar-item"><span class="icon">🕰️</span> Timeline</div>
-            <div class="sidebar-item"><span class="icon">📊</span> Dashboard</div>
-            <div class="sidebar-item"><span class="icon">🌳</span> Family Tree</div>
-            <div class="sidebar-item"><span class="icon">👤</span> Profile</div>
-
-            <div class="epoch-chip child">Childhood</div>
-            <div class="sidebar-item" style="padding-top:4px;padding-bottom:4px;"><span class="icon">📖</span> <span style="font-size:12px;">12 threads</span></div>
-            <div class="epoch-chip young">Young Adult</div>
-            <div class="sidebar-item" style="padding-top:4px;padding-bottom:4px;"><span class="icon">📖</span> <span style="font-size:12px;">8 threads</span></div>
-          </div>
-
-          <div class="mockup-main">
-            <div class="thread-card featured">
-              <div class="thread-card-top">
-                <span class="thread-date">☀️ Summer 1978</span>
-                <span class="thread-status final">✓ Final</span>
-              </div>
-              <div class="thread-title">The beach house at Whitby</div>
-              <div class="thread-preview">Every August without fail, Mum would load us into the old Vauxhall and we'd head north. Grandma Rose was always waiting at the door, tea already on...</div>
-              <div class="thread-tags">
-                <span class="tag-pill person">@Mum</span>
-                <span class="tag-pill person">@Grandma Rose</span>
-                <span class="tag-pill place">Whitby</span>
-                <span class="tag-pill topic">#childhood</span>
-              </div>
-            </div>
-            <div class="thread-card">
-              <div class="thread-card-top">
-                <span class="thread-date">🎓 June 1987</span>
-                <span class="thread-status draft">✏ Draft</span>
-              </div>
-              <div class="thread-title">The day I got my results</div>
-              <div class="thread-preview">Dad drove me to the school gates in silence. Neither of us talked about the possibility that it might go the other way...</div>
-              <div class="thread-tags">
-                <span class="tag-pill person">@Dad</span>
-                <span class="tag-pill place">St. George's School</span>
-                <span class="tag-pill topic">#education</span>
-              </div>
-            </div>
-            <div class="thread-card">
-              <div class="thread-card-top">
-                <span class="thread-date">💍 14 June 2003</span>
-                <span class="thread-status final">✓ Final</span>
-              </div>
-              <div class="thread-title">The happiest day of my life</div>
-              <div class="thread-preview">It rained all morning. By 2 o'clock the sun broke through exactly as we were walking out of the church...</div>
-              <div class="thread-tags">
-                <span class="tag-pill person">@Sarah</span>
-                <span class="tag-pill place">St. Mary's Church</span>
-                <span class="tag-pill topic">#milestones</span>
-              </div>
-            </div>
-          </div>
+        <div class="intro-text fade-up stagger-2">
+          <div class="section-label">Print, Publish &amp; Share</div>
+          <h2 class="section-title">Yarn is designed to make printing, publishing and sharing easy</h2>
+          <p>When your story is ready, Yarn makes it simple to share it with the people who matter. Export a beautifully formatted PDF ready to send to a printer, generate an EPUB for Kindle and Apple Books, or create a Markdown archive your family can keep forever.</p>
+          <p>Share individual threads or your whole story directly to Instagram, Facebook, and other social media platforms — one tap, beautifully formatted, ready to post.</p>
+          <a href="#waitlist" class="btn-green">Get notified →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Social Proof ──────────────────────────────────────────── -->
-  <div class="proof">
-    <div class="proof-inner container">
-      <span class="label">Built for</span>
-      <div class="proof-stat"><span class="emoji">👴</span> Older adults preserving their legacy</div>
-      <div class="proof-stat"><span class="emoji">👨‍👩‍👧</span> Families capturing shared history</div>
-      <div class="proof-stat"><span class="emoji">✍️</span> Storytellers who believe every story matters</div>
+  <!-- CAROUSEL -->
+  <section class="carousel-section" id="how">
+    <div class="container">
+      <div class="section-label">✦ How it works</div>
+      <h2 class="section-title">Everything you need to <span class="grad">tell your story</span></h2>
+    </div>
+    <div class="container" style="max-width:1100px;">
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="saili.png" alt="Father and son sailing" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Timeline</div>
+              <h2>Your whole life, in one view.</h2>
+              <p>See your whole life at a glance on the Timeline. Map generations of your family in your Family Tree.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="house1970sGemini_Generated_Image_rpj6eorpj6eorpj6.png" alt="Family memories" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Memory Prompts</div>
+              <h2>Never face a blank page again.</h2>
+              <p>Thousands of curated questions designed to unlock memories you didn't know you still had. A fresh prompt every day — covering childhood, love, career, travel, and everything in between.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-img"><img src="help.png" alt="Sharing memories together" /></div>
+            <div class="carousel-body">
+              <div class="carousel-tag">Collaboration</div>
+              <h2>You'll never write alone.</h2>
+              <p>Invite family or friends as editors using a secure code. They can read your threads, prompt new memories, and encourage the journey — while you stay in full control of every word they see.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="carouselPrev">&#8592;</button>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-idx="0"></button>
+          <button class="carousel-dot" data-idx="1"></button>
+          <button class="carousel-dot" data-idx="2"></button>
+        </div>
+        <button class="carousel-btn" id="carouselNext">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="quote-strip">
+    <div class="container">
+      <p class="big-quote">"What smell takes you straight back to your childhood?"</p>
+      <p class="big-quote-attr">Sensory &amp; Emotional · One of thousands of prompts in Yarn</p>
     </div>
   </div>
 
-  <!-- ── Features Grid ─────────────────────────────────────────── -->
-  <section class="features" id="features">
-    <div class="features-header container">
-      <div class="section-pill">✦ Everything you need</div>
-      <h2 class="section-title">Built for the <span class="grad">long story</span></h2>
-      <p class="section-desc">Every feature in Yarn exists to help you write more, worry less, and leave something lasting behind.</p>
-    </div>
-    <div class="features-grid container">
-      <div class="feat-card fade-up stagger-1">
-        <div class="feat-icon-wrap">✍️</div>
-        <h3>Focused Writing Editor</h3>
-        <p>A clean, simple, distraction-free editor built for stories. Type naturally — Yarn auto-tags the people, places, and topics you mention. Autosaves every few seconds.</p>
-      </div>
-      <div class="feat-card fade-up stagger-2">
-        <div class="feat-icon-wrap">🕰️</div>
-        <h3>Timeline & Life Epochs</h3>
-        <p>See your life chronologically. Threads are grouped into life epochs — Childhood, Young Adult, Middle Age, Later Years — so the shape of your story becomes clear.</p>
-      </div>
-      <div class="feat-card fade-up stagger-3">
-        <div class="feat-icon-wrap">💡</div>
-        <h3>Thousands of Memory Prompts</h3>
-        <p>One tap surfaces a curated question to spark a memory — from childhood and school days, to love, career turning points, and hard-won wisdom. Never face a blank page again.</p>
-      </div>
-      <div class="feat-card fade-up stagger-4">
-        <div class="feat-icon-wrap">👥</div>
-        <h3>Editor Collaboration <span style="font-size:11px;font-weight:600;background:rgba(226,98,42,0.18);color:var(--terra-glow);border-radius:6px;padding:2px 8px;vertical-align:middle;letter-spacing:0.03em;">Subscription</span></h3>
-        <p>Invite a family member or friend as an editor using a secure 8-character code. They can read your threads and ask questions to help fill the gaps — you stay in full control of what they see.</p>
-      </div>
-      <div class="feat-card fade-up stagger-5">
-        <div class="feat-icon-wrap">📸</div>
-        <h3>Photos, Audio & Video</h3>
-        <p>Attach media directly into your threads. Photos, voice recordings, video clips — each with their own captions and tags so nothing gets lost in a camera roll.</p>
-      </div>
-      <div class="feat-card fade-up stagger-6">
-        <div class="feat-icon-wrap">📖</div>
-        <h3>Export Your Memoir</h3>
-        <p>Export your story as a beautifully formatted HTML, EPUB, or PDF. Share by AirDrop, email, or save to Files. Your words, always in your hands — stored in open Markdown, never locked in.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- ── Big Feature: Timeline ─────────────────────────────────── -->
-  <section class="big-feature" id="how">
-    <div class="big-feature-inner container">
-      <div class="big-feature-text fade-up">
-        <div class="section-pill">🕰️ Timeline</div>
-        <h2 class="big-feature-title">Your whole life,<br />in one view.</h2>
-        <p class="big-feature-desc">
-          Every thread you write, every milestone you record, every key date from your life — all laid out in chronological order. Tap any event to open it, filter by person or place, and export selected moments as a formatted document.
-        </p>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> Pages, milestones, and key dates all unified</li>
-          <li><span class="check">✓</span> 50+ content-aware icons automatically matched</li>
-          <li><span class="check">✓</span> Colour-coded by life category</li>
-          <li><span class="check">✓</span> Filter by person, place, or status</li>
-          <li><span class="check">✓</span> Multi-select and export any slice of your story</li>
-        </ul>
-      </div>
-      <div class="vis-panel fade-up stagger-2">
-        <div class="timeline-vis">
-          <div class="tl-item">
-            <div class="tl-dot rose"></div>
-            <div class="tl-year">14 June 2003</div>
-            <div class="tl-title">💍 Got married</div>
-            <div class="tl-meta">Milestone · St. Mary's Church</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot amber"></div>
-            <div class="tl-year">September 1998</div>
-            <div class="tl-title">🏠 Moved to Edinburgh</div>
-            <div class="tl-meta">Thread · 312 words</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot indigo"></div>
-            <div class="tl-year">June 1994</div>
-            <div class="tl-title">🎓 Graduated from Leeds</div>
-            <div class="tl-meta">Milestone · Final</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot terra"></div>
-            <div class="tl-year">Summer 1987</div>
-            <div class="tl-title">💼 First job at the printing press</div>
-            <div class="tl-meta">Thread · 207 words</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot emerald"></div>
-            <div class="tl-year">August 1978</div>
-            <div class="tl-title">☀️ The beach house at Whitby</div>
-            <div class="tl-meta">Thread · 247 words · Final</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Big Feature: Prompts ──────────────────────────────────── -->
-  <section class="big-feature">
-    <div class="big-feature-inner reverse container">
-      <div class="big-feature-text fade-up">
-        <div class="section-pill">💡 Memory Prompts</div>
-        <h2 class="big-feature-title">Never face a<br />blank page again.</h2>
-        <p class="big-feature-desc">
-          Thousands of curated questions designed to spark imagination and unlock memories you didn't know you still had. Every day, a fresh prompt lands in your pocket — ready when you are.
-        </p>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> Thousands of questions across 10 life categories</li>
-          <li><span class="check">✓</span> Daily push notifications (your schedule)</li>
-          <li><span class="check">✓</span> Tap "Spark a different memory" for a new one</li>
-          <li><span class="check">✓</span> Prompts tailored to your profile and people</li>
-          <li><span class="check">✓</span> Editors and family members can also send questions</li>
-        </ul>
-      </div>
-      <div class="vis-panel fade-up stagger-2">
-        <div class="prompt-vis">
-          <div class="prompt-item active">
-            <div class="prompt-cat-label">Childhood &amp; Family</div>
-            <div class="prompt-q">"What is your earliest memory? Where were you, and who was with you?"</div>
-          </div>
-          <div class="prompt-item">
-            <div class="prompt-cat-label">Wisdom &amp; Reflection</div>
-            <div class="prompt-q">"What would you tell your 20-year-old self, knowing everything you know now?"</div>
-          </div>
-          <div class="prompt-item">
-            <div class="prompt-cat-label">Places &amp; Travel</div>
-            <div class="prompt-q">"What place has stayed with you most? Describe it exactly as you remember it."</div>
-          </div>
-          <div class="prompt-item">
-            <div class="prompt-cat-label">Love &amp; Relationships</div>
-            <div class="prompt-q">"How did you first meet your partner? What do you remember most about that day?"</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Big Feature: Collaboration ───────────────────────────── -->
-  <section class="big-feature">
-    <div class="big-feature-inner container">
-      <div class="big-feature-text fade-up">
-        <div class="section-pill">👥 Editor Collaboration &nbsp;<span style="font-size:11px;font-weight:600;background:rgba(226,98,42,0.22);color:var(--terra-glow);border-radius:6px;padding:2px 8px;letter-spacing:0.03em;">Subscription only</span></div>
-        <h2 class="big-feature-title">You'll never write<br />alone.</h2>
-        <p class="big-feature-desc">
-          Invite a family member or close friend as an editor using a secure 8-character code from Settings → My Editors. They can read your threads, ask questions to help you fill in the gaps, and encourage the journey — while you stay in full control of every word they can see. Available with an active subscription.
-        </p>
-        <ul class="feature-list">
-          <li><span class="check">✓</span> Invite editors with a secure 8-character code</li>
-          <li><span class="check">✓</span> Editors can send questions and reminders to inspire writing</li>
-          <li><span class="check">✓</span> Editors can view progress and offer encouragement</li>
-          <li><span class="check">✓</span> Editors can add questions and comments inside a thread</li>
-          <li><span class="check">✓</span> Editors can read and suggest edits — all changes saved</li>
-          <li><span class="check">✓</span> An editor can assist multiple authors</li>
-          <li><span class="check">✓</span> Private threads stay completely hidden</li>
-          <li><span class="check">✓</span> Revoke access any time, instantly</li>
-        </ul>
-      </div>
-      <div class="vis-panel fade-up stagger-2">
-        <div class="collab-vis">
-          <div style="font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:8px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;">The beach house at Whitby</div>
-          <div class="collab-msg">
-            <div class="collab-avatar author">JG</div>
-            <div>
-              <div class="collab-name">You (Author)</div>
-              <div class="collab-bubble">Every August without fail, Mum would load us into the old Vauxhall and we'd head north. Grandma Rose was always waiting at the door, tea already on.</div>
-            </div>
-          </div>
-          <div class="collab-msg editor">
-            <div class="collab-avatar editor">SG</div>
-            <div style="text-align:right;">
-              <div class="collab-name">Sarah (Editor)</div>
-              <div class="collab-bubble">I love this one. Do you remember what Grandma Rose always used to say when you arrived? I think there was a phrase she always used?</div>
-            </div>
-          </div>
-          <div class="collab-msg">
-            <div class="collab-avatar author">JG</div>
-            <div>
-              <div class="collab-name">You (Author)</div>
-              <div class="collab-bubble">Oh of course — "The kettle's been on since Tuesday!" I'll add that. Great catch.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Prompt Categories ─────────────────────────────────────── -->
-  <section class="prompts-cta" id="prompts">
-    <div class="container">
-      <div class="section-pill">✦ Thousands of prompts</div>
-      <h2 class="section-title">Every chapter of<br /><span class="grad">a life, covered.</span></h2>
-      <p class="section-desc">From your very first memory to the wisdom you've earned — Yarn's prompts cover every corner of a human life.</p>
-      <div class="prompt-chips">
-        <span class="prompt-chip">Childhood &amp; Family</span>
-        <span class="prompt-chip">School &amp; Education</span>
-        <span class="prompt-chip">Love &amp; Relationships</span>
-        <span class="prompt-chip">Career &amp; Work</span>
-        <span class="prompt-chip">Places &amp; Travel</span>
-        <span class="prompt-chip">Milestones &amp; Life Events</span>
-        <span class="prompt-chip">Hobbies &amp; Interests</span>
-        <span class="prompt-chip">Challenges &amp; Growth</span>
-        <span class="prompt-chip">Sensory &amp; Emotional</span>
-        <span class="prompt-chip">Wisdom &amp; Reflection</span>
-      </div>
-      <div class="big-prompt-card">
-        <div class="quot">"</div>
-        <div class="prompt-text">What smell takes you straight back to your childhood?</div>
-        <div class="prompt-category">Sensory &amp; Emotional · One of thousands of prompts</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Pricing ───────────────────────────────────────────────── -->
+  <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="pricing-header container">
-      <div class="section-pill">💰 Pricing</div>
-      <h2 class="section-title">Start free.<br /><span class="gradient-text">Your story, your way.</span></h2>
-      <p class="section-desc">Two months free to explore — then a simple one-time fee plus a small monthly subscription to keep writing.</p>
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Start free. <span class="grad">Your story, your way.</span></h2>
+      <p class="section-desc" style="margin:0 auto;">Write freely for two months — then choose the plan that suits your story.</p>
     </div>
     <div class="pricing-grid container">
-
-      <div class="price-card fade-up stagger-1">
+      <div class="price-card fade-up">
         <div class="price-name">Free Trial</div>
-        <div class="price-amount">
-          <div><span class="price-num">$0</span></div>
-          <div class="price-note">First 2 months free</div>
-        </div>
+        <div><span class="price-num">$0</span></div>
+        <div class="price-note">Write freely for 2 months</div>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li><span class="ck">✓</span><span>Full access for 2 months</span></li>
-          <li><span class="ck">✓</span><span>Write &amp; edit threads</span></li>
-          <li><span class="ck">✓</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">✓</span><span>Write freely for 2 months</span></li>
           <li><span class="ck">✓</span><span>Timeline &amp; Dashboard</span></li>
           <li><span class="ck">✓</span><span>Photos, audio &amp; video</span></li>
-          <li><span class="ck">✓</span><span>Editor Collaboration</span></li>
-          <li><span class="ck">✓</span><span>Download &amp; export your story</span></li>
+          <li><span class="ck">✓</span><span>Download whenever you need</span></li>
         </ul>
         <a href="#waitlist" class="price-btn ghost">Get started free</a>
       </div>
-
       <div class="price-card featured fade-up stagger-2">
-        <div class="price-badge">⭐ Standard plan</div>
-        <div class="price-name">Lifetime + Subscription</div>
-        <div class="price-amount">
-          <div><span class="price-num">$10</span><span class="price-unit"> once</span></div>
-          <div class="price-note">+ $5 / month to keep writing</div>
-        </div>
+        <div class="price-name">Standard</div>
+        <div><span class="price-num">$20</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">Everything you need to tell your story</div>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li><span class="ck">✓</span><span>Lifetime access — view &amp; download always</span></li>
-          <li><span class="ck">✓</span><span>Up to 50,000 words</span></li>
-          <li><span class="ck">✓</span><span>200 images or audio files</span></li>
-          <li><span class="ck">✓</span><span>Write &amp; edit threads (subscription)</span></li>
-          <li><span class="ck">✓</span><span>Daily prompts &amp; notifications (subscription)</span></li>
-          <li><span class="ck">✓</span><span>Editor Collaboration (subscription)</span></li>
-          <li><span class="ck">✓</span><span>Full export — HTML &amp; plain text</span></li>
+          <li><span class="ck">✓</span><span>Memory prompts &amp; daily notifications</span></li>
+          <li><span class="ck">✓</span><span>Friends &amp; family can prompt memories</span></li>
+          <li><span class="ck">✓</span><span>Editor collaboration</span></li>
+          <li><span class="ck">✓</span><span>Enhanced export — HTML, EPUB &amp; PDF</span></li>
         </ul>
-        <a href="#waitlist" class="price-btn solid">Join waitlist</a>
+        <a href="#waitlist" class="price-btn solid">Get notified</a>
       </div>
-
       <div class="price-card fade-up stagger-3">
-        <div class="price-name">+ Extended Storage</div>
-        <div class="price-amount">
-          <div><span class="price-num">+$5</span><span class="price-unit">/mo</span></div>
-          <div class="price-note">Added to your subscription</div>
-        </div>
+        <div class="price-name">Extended Storage</div>
+        <div><span class="price-num">$30</span><span class="price-unit">/mo</span></div>
+        <div class="price-note">For the storyteller with more to say</div>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li><span class="ck">✓</span><span>Everything in the Standard plan</span></li>
-          <li><span class="ck">✓</span><span>Double your media — up to 400 images or audio files</span></li>
-          <li><span class="ck">✓</span><span>Double your word limit — up to 100,000 words</span></li>
+          <li><span class="ck">✓</span><span>500 images or audio files</span></li>
+          <li><span class="ck">✓</span><span>Up to 150,000 words</span></li>
         </ul>
-        <a href="#waitlist" class="price-btn ghost">Join waitlist</a>
+        <a href="#waitlist" class="price-btn ghost">Get notified</a>
       </div>
-
     </div>
   </section>
 
-  <!-- ── Final CTA ─────────────────────────────────────────────── -->
+  <!-- OWNERSHIP STATEMENT -->
+  <section style="padding: 80px 0; background: var(--cream);">
+    <div class="container" style="max-width: 720px; text-align: center;">
+      <h2 class="section-title">Your memories belong to <span class="grad">you.</span></h2>
+      <p style="font-size: 18px; color: var(--muted); line-height: 1.8; margin-top: 16px;">We believe your memories belong to you — not a platform. That's why Yarn stores everything in open formats you can export, share, or move at any time. No lock-in. No surprises.</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
   <section class="final-cta" id="waitlist">
     <div class="container">
-      <div class="section-pill">✦ Join the waitlist</div>
-      <h2 class="section-title">Be among the first<br />to <span class="grad">tell your story.</span></h2>
-      <p class="section-desc">Yarn is launching soon. Join the waitlist and we'll let you know the moment it's ready — plus an exclusive early-access offer for founding members.</p>
+      <div class="section-label">✦ Coming mid 2026</div>
+      <h2 class="section-title">Be among the first<br /><span class="grad">to download the app.</span></h2>
+      <p class="section-desc" style="margin:0 auto;">Yarn is launching mid 2026. Leave your email and we'll let you know the moment it's ready to download.</p>
       <form class="final-cta-form" id="bottom-form" onsubmit="handleSignup(event,'bottom-confirm','bottom-form')">
         <input type="email" placeholder="Enter your email address" required />
-        <button type="submit" class="btn-light">Get early access →</button>
+        <button type="submit" class="btn-dark">Notify me →</button>
       </form>
-      <p class="cta-note">Free to join · No credit card required</p>
+      <p class="cta-note">No credit card required · No spam, ever</p>
       <div class="confirm-light" id="bottom-confirm">✓ You're on the list — we'll be in touch soon!</div>
     </div>
   </section>
 
-  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner container">
       <div class="footer-brand">
@@ -1721,69 +427,88 @@
           <img src="assets/yarn-logo.png" alt="Yarn" />
           <span class="nav-logo-text">Yarn</span>
         </a>
-        <p class="footer-tagline">Woven from life. Spun by you.</p>
+        <p class="footer-tagline">Woven from life. Spun by you.<br />Made with ♥ for storytellers everywhere.</p>
       </div>
-      <div class="footer-links-grid">
-        <div class="footer-col">
-          <h4>Product</h4>
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how">How it works</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#waitlist">Join waitlist</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Story</h4>
-          <ul>
-            <li><a href="#">About Yarn</a></li>
-            <li><a href="#">Our mission</a></li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Support</h4>
-          <ul>
-            <li><a href="#">Help centre</a></li>
-            <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">Terms of use</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#waitlist">Get notified</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Story</h4>
+        <ul>
+          <li><a href="#">About Yarn</a></li>
+          <li><a href="#">Our mission</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help centre</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of use</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom container">
-      <p>&copy; 2026 Yarn. All rights reserved.</p>
+      <p>© 2026 Yarn. All rights reserved.</p>
       <p>Built with ♥ for storytellers everywhere.</p>
     </div>
   </footer>
 
   <script>
-    // Waitlist handler — replace the fetch() with your real endpoint
     function handleSignup(e, confirmId, formId) {
       e.preventDefault();
       const form = document.getElementById(formId);
-      const email = form.querySelector('input[type="email"]').value;
-
-      // TODO: wire up to your real endpoint
-      // fetch('/api/waitlist', { method:'POST', body: JSON.stringify({email}), headers:{'Content-Type':'application/json'} })
-
-      console.log('Waitlist signup:', email);
-      form.style.opacity = '0';
-      form.style.pointerEvents = 'none';
+      form.style.opacity = '0'; form.style.pointerEvents = 'none';
       document.getElementById(confirmId).classList.add('visible');
     }
-
-    // Intersection observer for fade-up animations
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('in');
-      }),
-      { threshold: 0.12 }
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.1 }
     );
-
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
 
+    // ── CAROUSEL ──
+    (function() {
+      const track = document.getElementById('carouselTrack');
+      const dots  = document.querySelectorAll('.carousel-dot');
+      const prev  = document.getElementById('carouselPrev');
+      const next  = document.getElementById('carouselNext');
+      if (!track) return;
+      let current = 0;
+      const total = track.children.length;
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+      dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+      // Auto-advance every 5 seconds
+      let timer = setInterval(() => goTo(current + 1), 5000);
+      track.closest('.carousel-section').addEventListener('mouseenter', () => clearInterval(timer));
+      track.closest('.carousel-section').addEventListener('mouseleave', () => {
+        timer = setInterval(() => goTo(current + 1), 5000);
+      });
+
+      // Touch swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+      });
+    })();
+  </script>
 </body>
 </html>
